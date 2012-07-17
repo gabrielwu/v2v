@@ -18,15 +18,15 @@
 #include "scattering.h"
 #endif 
 using namespace std;
-
-// 汽车类
+//11111111111111111111222222222222222222222
+// 锟斤拷锟斤拷锟斤拷
 class Vehicle {
 	friend class Model;
 private:
-    Direction direction; // 行进(速度)方向
-    double velocity; // 速率
+    Direction direction; // 锟叫斤拷(锟劫讹拷)锟斤拷锟斤拷
+    double velocity; // 锟斤拷锟斤拷
 public:
-    Point p; // 天线参考点
+    Point p; // 锟斤拷锟竭参匡拷锟斤拷
 	Vehicle(const Point& p = Point(), const Direction& direction = Direction(), double velocity = 0):p(p),direction(direction),velocity(velocity) {};
 	Point getP() const;
 	Direction getDirection() const {
@@ -39,32 +39,32 @@ public:
 	void displayVehichle();
 };
 
-// 反射类
+// 锟斤拷锟斤拷锟斤拷
 class Reflection {
 	friend class Model;
 	friend class Path;
 	friend class MixPathSegment;
 	friend class MixPath;
 private:
-    double length; // 注意是从反射点到终止点的长度
-    Point reflectPoint; // 反射点
-    Point startPoint; // 反射分段起始点
-	Point endPoint; // 反射分段终止点
-    Surface surface; // 反射面
-    Direction direction; // 反射点到终止点点的方向
-	Direction h; // 反射波平行于反射面内的振幅分量方向
-	Direction v; // 反射波垂直于反射面内的振幅分量方向
-	double hAmplitude; // 反射波平行于反射面的振幅大小
-	double vAmplitude; // 反射波垂直于反射面的振幅大小
-	Direction amplitudeDireciton; // 振幅方向
-	double amplitude; // 振幅大小
-	double reflectAngle; // 反射角大小
-	double amplitudeFadeV; // 反射波垂直于反射面的振幅衰落百分比
-	double amplitudeFadeH; // 反射波平行于反射面的振幅衰落百分比
-	double vPhaseShift; // 反射波垂直于反射面的相移
-	double hPhaseShift; // 反射波平行于反射面的相移
-	double scatterFade; // 散射因子
-	double hc; // 平整参考高度
+    double length; // 注锟斤拷锟角从凤拷锟斤拷锟姐到锟斤拷止锟斤拷锟侥筹拷锟斤拷
+    Point reflectPoint; // 锟斤拷锟斤拷锟斤拷
+    Point startPoint; // 锟斤拷锟斤拷锟街讹拷锟斤拷始锟斤拷
+	Point endPoint; // 锟斤拷锟斤拷锟街讹拷锟斤拷止锟斤拷
+    Surface surface; // 锟斤拷锟斤拷锟斤拷
+    Direction direction; // 锟斤拷锟斤拷锟姐到锟斤拷止锟斤拷锟斤拷锟侥凤拷锟斤拷
+	Direction h; // 锟斤拷锟戒波平锟斤拷锟节凤拷锟斤拷锟斤拷锟节碉拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
+	Direction v; // 锟斤拷锟戒波锟斤拷直锟节凤拷锟斤拷锟斤拷锟节碉拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
+	double hAmplitude; // 锟斤拷锟戒波平锟斤拷锟节凤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷小
+	double vAmplitude; // 锟斤拷锟戒波锟斤拷直锟节凤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷小
+	Direction amplitudeDireciton; // 锟斤拷锟斤拷锟斤拷锟斤拷
+	double amplitude; // 锟斤拷锟斤拷锟斤拷小
+	double reflectAngle; // 锟斤拷锟斤拷锟角达拷小
+	double amplitudeFadeV; // 锟斤拷锟戒波锟斤拷直锟节凤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷衰锟斤拷锟劫分憋拷
+	double amplitudeFadeH; // 锟斤拷锟戒波平锟斤拷锟节凤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷衰锟斤拷锟劫分憋拷
+	double vPhaseShift; // 锟斤拷锟戒波锟斤拷直锟节凤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
+	double hPhaseShift; // 锟斤拷锟戒波平锟斤拷锟节凤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
+	double scatterFade; // 散锟斤拷锟斤拷锟斤拷
+	double hc; // 平锟斤拷锟轿匡拷锟竭讹拷
 public:
 	Reflection(double length, 
 		       const Point& reflectPoint, 
@@ -139,40 +139,40 @@ public:
 	void setVPhaseShift(double vPhaseShift) {
 		this->vPhaseShift = vPhaseShift;
 	};
-	// 判断此段路径是否被其他面阻挡
+	// 锟叫断此讹拷路锟斤拷锟角凤拷锟斤拷锟斤拷锟斤拷锟斤拷锟借挡
 	bool isBlocked(vector<Surface>& surface);
 };
 
 
-// 传播路径类
+// 锟斤拷锟斤拷路锟斤拷锟斤拷
 class Path {
 	friend class Model;
 	friend class MixPathSegment;
 	friend class MixPath;
 private:
-    double totalLength;// 路径总长度
-    int numOfReflect;// 反射次数
-	double delayTime;// 传播时延
-    vector<Reflection> reflections;// 反射对象向量
-	Direction h;// 反射波平行于反射面内的振幅分量方向
-	Direction v;// 反射波垂直于反射面内的振幅分量方向
-	double initPhase[2];// 初始相位,垂直极化v，水平极化h[v,h]
-	double hAmplitude;// 反射波平行于反射面的振幅大小
-	double vAmplitude;// 反射波垂直于反射面的振幅大小
-	double vPhaseShift;// 反射波垂直于反射面的相移
-	double hPhaseShift;// 反射波平行于反射面的相移
-	double relativeVelocity;// 接收车(镜像)和发射车的相对速度
-	double relativeAngle;// 接收车(镜像)和发射车的相对速度方向与该路径传播方向的夹角
-	Direction relVelDirect;// 接收车(镜像)和发射车的相对速度方向
-	double vDoppler;// 接收车(镜像)和发射车的相对速度相对于传播路径的速度
-	double frequency;// 频率
-	double waveLength;// 波长
-	double fDopplerShift;// 多普勒频移
-	double vPhasereceive;// 垂直方向接收到的相位
-	double hPhasereceive;// 水平方向接收到的相位
-	double amplitudeReceive[2];// 接收设备收到的振幅,垂直极化,水平极化	
-	double ir[2];// 冲击响应,v垂直极化，h水平极化
-	double amplitudeFade; // 路损
+    double totalLength;// 路锟斤拷锟杰筹拷锟斤拷
+    int numOfReflect;// 锟斤拷锟斤拷锟斤拷锟斤拷
+	double delayTime;// 锟斤拷锟斤拷时锟斤拷
+    vector<Reflection> reflections;// 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
+	Direction h;// 锟斤拷锟戒波平锟斤拷锟节凤拷锟斤拷锟斤拷锟节碉拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
+	Direction v;// 锟斤拷锟戒波锟斤拷直锟节凤拷锟斤拷锟斤拷锟节碉拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
+	double initPhase[2];// 锟斤拷始锟斤拷位,锟斤拷直锟斤拷锟斤拷v锟斤拷水平锟斤拷锟斤拷h[v,h]
+	double hAmplitude;// 锟斤拷锟戒波平锟斤拷锟节凤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷小
+	double vAmplitude;// 锟斤拷锟戒波锟斤拷直锟节凤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷小
+	double vPhaseShift;// 锟斤拷锟戒波锟斤拷直锟节凤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
+	double hPhaseShift;// 锟斤拷锟戒波平锟斤拷锟节凤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
+	double relativeVelocity;// 锟斤拷锟秸筹拷(锟斤拷锟斤拷)锟酵凤拷锟戒车锟斤拷锟斤拷锟斤拷锟劫讹拷
+	double relativeAngle;// 锟斤拷锟秸筹拷(锟斤拷锟斤拷)锟酵凤拷锟戒车锟斤拷锟斤拷锟斤拷锟劫度凤拷锟斤拷锟斤拷锟斤拷路锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟侥夹斤拷
+	Direction relVelDirect;// 锟斤拷锟秸筹拷(锟斤拷锟斤拷)锟酵凤拷锟戒车锟斤拷锟斤拷锟斤拷锟劫度凤拷锟斤拷
+	double vDoppler;// 锟斤拷锟秸筹拷(锟斤拷锟斤拷)锟酵凤拷锟戒车锟斤拷锟斤拷锟斤拷锟劫讹拷锟斤拷锟斤拷锟节达拷锟斤拷路锟斤拷锟斤拷锟劫讹拷
+	double frequency;// 频锟斤拷
+	double waveLength;// 锟斤拷锟斤拷
+	double fDopplerShift;// 锟斤拷锟斤拷锟斤拷频锟斤拷
+	double vPhasereceive;// 锟斤拷直锟斤拷锟斤拷锟斤拷锟秸碉拷锟斤拷锟斤拷位
+	double hPhasereceive;// 水平锟斤拷锟斤拷锟斤拷锟秸碉拷锟斤拷锟斤拷位
+	double amplitudeReceive[2];// 锟斤拷锟斤拷锟借备锟秸碉拷锟斤拷锟斤拷锟斤拷,锟斤拷直锟斤拷锟斤拷,水平锟斤拷锟斤拷	
+	double ir[2];// 锟斤拷锟斤拷锟斤拷应,v锟斤拷直锟斤拷锟斤拷锟斤拷h水平锟斤拷锟斤拷
+	double amplitudeFade; // 路锟斤拷
 public:
 	Path(double totalLength, int numOfReflect, const vector<Reflection>& reflections):
 	  totalLength(totalLength), numOfReflect(numOfReflect), reflections(reflections) {
@@ -329,7 +329,7 @@ public:
 	
 	};
 
-    // 获取路径总长度
+    // 锟斤拷取路锟斤拷锟杰筹拷锟斤拷
     double getTotalLength() const;
 	int getNumOfReflect() const;
 	vector<Reflection> getReflections() ;
@@ -344,20 +344,20 @@ class DiffractPath {
 	friend class MixPath;
 private:
 	Reflection* reflection;
-    double totalLength; // 路径总长度
-	double delayTime; // 传播时延
-	double frequency; // 频率
-	double waveLength; // 波长
-	double vDoppler; // 多普勒速度
-	Direction aInDirection[2]; // 绕射前极化方向，垂直，水平
-	Direction aOutDirection[2]; // 绕射后极化方向，垂直，水平
-	double aIn[2]; // 绕射前振幅，垂直，水平
-	double aOut[2]; // 绕射后振幅，垂直，水平
-	double aReceive[2]; // 接收设备收到的振幅,垂直极化,水平极化
-	double phase[2]; // 相位，垂直，水平
-	double ir[2]; // 冲击响应,v垂直极化，h水平极化
-	Diffraction diffraction; // 绕射对象
-	double amplitudeFade; // 绕射引起的振幅衰落百分比
+    double totalLength; // 路锟斤拷锟杰筹拷锟斤拷
+	double delayTime; // 锟斤拷锟斤拷时锟斤拷
+	double frequency; // 频锟斤拷
+	double waveLength; // 锟斤拷锟斤拷
+	double vDoppler; // 锟斤拷锟斤拷锟斤拷锟劫讹拷
+	Direction aInDirection[2]; // 锟斤拷锟斤拷前锟斤拷锟斤拷锟斤拷锟津，达拷直锟斤拷水平
+	Direction aOutDirection[2]; // 锟斤拷锟斤拷锟襟极伙拷锟斤拷锟津，达拷直锟斤拷水平
+	double aIn[2]; // 锟斤拷锟斤拷前锟斤拷锟斤拷锟斤拷锟斤拷直锟斤拷水平
+	double aOut[2]; // 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷直锟斤拷水平
+	double aReceive[2]; // 锟斤拷锟斤拷锟借备锟秸碉拷锟斤拷锟斤拷锟斤拷,锟斤拷直锟斤拷锟斤拷,水平锟斤拷锟斤拷
+	double phase[2]; // 锟斤拷位锟斤拷锟斤拷直锟斤拷水平
+	double ir[2]; // 锟斤拷锟斤拷锟斤拷应,v锟斤拷直锟斤拷锟斤拷锟斤拷h水平锟斤拷锟斤拷
+	Diffraction diffraction; // 锟斤拷锟斤拷锟斤拷锟斤拷
+	double amplitudeFade; // 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷衰锟斤拷锟劫分憋拷
 public:
     DiffractPath(const Diffraction& diffraction):diffraction(diffraction){};
 	void init(Vehicle& tx, Vehicle& rx);
@@ -385,13 +385,13 @@ public:
 	}
 };
 
-// 混合路径段
+// 锟斤拷锟斤拷路锟斤拷锟斤拷
 class MixPathSegment{
 	friend class MixPath;
 private:
-    Reflection* pReflect;// 反射或直射路径对象指针
-    Diffraction* pDiffract; // 绕射路径对象指针
-	double length; // 分段长度
+    Reflection* pReflect;// 锟斤拷锟斤拷锟斤拷直锟斤拷路锟斤拷锟斤拷锟斤拷指锟斤拷
+    Diffraction* pDiffract; // 锟斤拷锟斤拷路锟斤拷锟斤拷锟斤拷指锟斤拷
+	double length; // 锟街段筹拷锟斤拷
 public:
     MixPathSegment(Reflection* pReflect = NULL, Diffraction* pDiffract = NULL):pReflect(pReflect),pDiffract(pDiffract){
 		if (pDiffract != NULL) {
@@ -407,24 +407,24 @@ public:
 	    return this->pDiffract;
 	};
 };
-// 混合路径
+// 锟斤拷锟斤拷路锟斤拷
 class MixPath{
 	friend class Model;
 private:
-	Path* reflectPath; // 未进行验证的反射路径
-    vector<MixPathSegment> segments; // 分段向量，构成完整的路径
-    double totalLength; // 路径总长度	
-	double delayTime; // 传播时延
-	double frequency; // 频率
-	double fDopplerShift; // 多普勒频移
-	double waveLength; // 波长
-	double vDoppler; // 多普勒速度
-	double amplitude[2]; // 该路径两个极化方向上的振幅，v,h
-	Direction polarization[2]; // 该路径两个极化方向，v,h
-	double amplitudeReceive[2]; // 接收设备收到的振幅,垂直极化,水平极化
-	double phase[2]; // 相位，垂直，水平
-	double ir[2]; // 冲击响应,v垂直极化，h水平极化
-	double amplitudeFade; // 路损
+	Path* reflectPath; // 未锟斤拷锟斤拷锟斤拷证锟侥凤拷锟斤拷路锟斤拷
+    vector<MixPathSegment> segments; // 锟街讹拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷路锟斤拷
+    double totalLength; // 路锟斤拷锟杰筹拷锟斤拷	
+	double delayTime; // 锟斤拷锟斤拷时锟斤拷
+	double frequency; // 频锟斤拷
+	double fDopplerShift; // 锟斤拷锟斤拷锟斤拷频锟斤拷
+	double waveLength; // 锟斤拷锟斤拷
+	double vDoppler; // 锟斤拷锟斤拷锟斤拷锟劫讹拷
+	double amplitude[2]; // 锟斤拷路锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟较碉拷锟斤拷锟斤拷锟斤拷v,h
+	Direction polarization[2]; // 锟斤拷路锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷v,h
+	double amplitudeReceive[2]; // 锟斤拷锟斤拷锟借备锟秸碉拷锟斤拷锟斤拷锟斤拷,锟斤拷直锟斤拷锟斤拷,水平锟斤拷锟斤拷
+	double phase[2]; // 锟斤拷位锟斤拷锟斤拷直锟斤拷水平
+	double ir[2]; // 锟斤拷锟斤拷锟斤拷应,v锟斤拷直锟斤拷锟斤拷锟斤拷h水平锟斤拷锟斤拷
+	double amplitudeFade; // 路锟斤拷
 public:
 	MixPath(Path* reflectPath, const vector<MixPathSegment>& segments):reflectPath(reflectPath),segments(segments){
 	    this->vDoppler = this->reflectPath->vDoppler;
@@ -461,42 +461,42 @@ public:
 	};
 };
 
-//总体模型类
+//锟斤拷锟斤拷模锟斤拷锟斤拷
 class Model{
 	friend class MergePathModel;
 private:	
-    Vehicle transmitter; // 发射车Tx
-    Vehicle receiver; // 接收车Rx
-	vector<Antenna> tAntennas; // 发射天线阵
-	vector<Antenna> rAntennas; // 接收天线阵
-	vector<Path> strongestPaths; // 能量最强的路径
-	vector<Path> surfaceScatterPaths; // 平面散射路径路径，考虑了散射的strongestPaths
-	vector<DiffractPath> diffractPaths; // 绕射路径向量
-	vector<TreeScatterPath> treeScatterPaths; // 树木散射路径 
-	vector<LeafScatterPath> leafScatterPaths; // 树叶子散射路径 
-	vector<LeafScatterMergePath> leafScatterMergePaths; // 树叶子散射合并路径 
-	vector<MixPath> mixPaths; // 绕射路径向量
-    vector<Surface> surfaces; // 反射表面
-    vector<Edge> edges; // 刃形向量
-	vector<Tree> trees; // 树木
-	int sampleCount; // 采样次数
-	double sampleInterval; // 采样间隔
-	// 计算LOS
+    Vehicle transmitter; // 锟斤拷锟戒车Tx
+    Vehicle receiver; // 锟斤拷锟秸筹拷Rx
+	vector<Antenna> tAntennas; // 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
+	vector<Antenna> rAntennas; // 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
+	vector<Path> strongestPaths; // 锟斤拷锟斤拷锟斤拷强锟斤拷路锟斤拷
+	vector<Path> surfaceScatterPaths; // 平锟斤拷散锟斤拷路锟斤拷路锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷散锟斤拷锟斤拷strongestPaths
+	vector<DiffractPath> diffractPaths; // 锟斤拷锟斤拷路锟斤拷锟斤拷锟斤拷
+	vector<TreeScatterPath> treeScatterPaths; // 锟斤拷木散锟斤拷路锟斤拷 
+	vector<LeafScatterPath> leafScatterPaths; // 锟斤拷叶锟斤拷散锟斤拷路锟斤拷 
+	vector<LeafScatterMergePath> leafScatterMergePaths; // 锟斤拷叶锟斤拷散锟斤拷锟较诧拷路锟斤拷 
+	vector<MixPath> mixPaths; // 锟斤拷锟斤拷路锟斤拷锟斤拷锟斤拷
+    vector<Surface> surfaces; // 锟斤拷锟斤拷锟斤拷锟斤拷
+    vector<Edge> edges; // 锟斤拷锟斤拷锟斤拷锟斤拷
+	vector<Tree> trees; // 锟斤拷木
+	int sampleCount; // 锟斤拷锟斤拷锟斤拷锟斤拷
+	double sampleInterval; // 锟斤拷锟斤拷锟斤拷锟斤拷
+	// 锟斤拷锟斤拷LOS
 	bool calculateLOSPath();
-	// 计算反射路径
+	// 锟斤拷锟姐反锟斤拷路锟斤拷
 	bool calculateReflectPaths();
-	// LOS绕射条件判断
+	// LOS锟斤拷锟斤拷锟斤拷锟斤拷锟叫讹拷
 	// return 
-	// 1:直射，空间自由；
-	// 2:衍射，半开，时延、多普勒、相位都按直射来计算，振幅（或者功率）损失按照绕射来算
-	// 3:所有参数按绕射计算
+	// 1:直锟戒，锟秸硷拷锟斤拷锟缴ｏ拷
+	// 2:锟斤拷锟戒，锟诫开锟斤拷时锟接★拷锟斤拷锟斤拷锟秸★拷锟斤拷位锟斤拷锟斤拷直锟斤拷锟斤拷锟斤拷锟姐，锟斤拷锟斤拷锟斤拷锟斤拷锟竭癸拷锟绞ｏ拷锟斤拷失锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
+	// 3:锟斤拷锟叫诧拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
 	int isLOSExist();
-	// 影响los的绕射路径
-	// param: DiffractPath* ,出参
+	// 影锟斤拷los锟斤拷锟斤拷锟斤拷路锟斤拷
+	// param: DiffractPath* ,锟斤拷锟斤拷
 	// return:
-	// 1:直射，空间自由；
-	// 2:衍射，半开，时延、多普勒、相位都按直射来计算，振幅（或者功率）损失按照绕射来算
-	// 3:所有参数按绕射计算
+	// 1:直锟戒，锟秸硷拷锟斤拷锟缴ｏ拷
+	// 2:锟斤拷锟戒，锟诫开锟斤拷时锟接★拷锟斤拷锟斤拷锟秸★拷锟斤拷位锟斤拷锟斤拷直锟斤拷锟斤拷锟斤拷锟姐，锟斤拷锟斤拷锟斤拷锟斤拷锟竭癸拷锟绞ｏ拷锟斤拷失锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
+	// 3:锟斤拷锟叫诧拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
 	DiffractPath* diffractAffectLos(int& type);
 public:
 	Model(const Vehicle& transmitter, 
@@ -538,7 +538,7 @@ public:
 	void setTrees(const vector<Tree>& trees) {
 		this->trees = trees;
 	};
-	// 设置采样信息
+	// 锟斤拷锟矫诧拷锟斤拷锟斤拷息
 	void setSampleInfo(int sampleCount, double sampleInterval) {
 	    this->sampleCount = sampleCount;
 		this->sampleInterval = sampleInterval;
@@ -549,140 +549,140 @@ public:
 	double getSampleInterval() {
 	    return this->sampleInterval;
 	};
-    // 初始化
+    // 锟斤拷始锟斤拷
     void init();
-	// 获取模型中最短的7条路径（确切讲为能量最强的，下一步工作）
+	// 锟斤拷取模锟斤拷锟斤拷锟斤拷锟教碉拷7锟斤拷路锟斤拷锟斤拷确锟叫斤拷为锟斤拷锟斤拷锟斤拷强锟侥ｏ拷锟斤拷一锟斤拷锟斤拷锟斤拷锟斤拷
     // return: 
     bool calculateStrongestPaths();
-	// 计算绕射路径
+	// 锟斤拷锟斤拷锟斤拷锟斤拷路锟斤拷
 	bool calculateDiffractPaths();
 
-	// 计算平面散射路径，在calculateStrongestPaths()后调用，直接采用了StrongestPaths，不同于其他类型路径的计算
+	// 锟斤拷锟斤拷平锟斤拷散锟斤拷路锟斤拷锟斤拷锟斤拷calculateStrongestPaths()锟斤拷锟斤拷锟矫ｏ拷直锟接诧拷锟斤拷锟斤拷StrongestPaths锟斤拷锟斤拷同锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷路锟斤拷锟侥硷拷锟斤拷
 	bool calculateSurfaceScatterPaths();
 
-	// 计算树木散射路径
+	// 锟斤拷锟斤拷锟斤拷木散锟斤拷路锟斤拷
 	bool calculateTreeScatterPaths();
 	bool calculateTreeScatterPath(list<Tree> t);
 	void insertTreeScatterPath(const TreeScatterPath& newPath);
 
-	// 计算树叶子散射路径
+	// 锟斤拷锟斤拷锟斤拷叶锟斤拷散锟斤拷路锟斤拷
 	bool calculateLeafScatterPaths();
 	bool calculateLeafScatterPath(list<Leaf> l);
 	void insertLeafScatterPath(const LeafScatterPath& newPath);
 
-	// 计算混合路径
+	// 锟斤拷锟斤拷锟斤拷锟斤拷路锟斤拷
 	bool calculateMixPaths();
 
-    // 构建单条完整反射传播路径()
-    // @pt:发射天线点
-    // @pr:接收天线点
-    // @surfaces:假定信号传播路径所经反射面的序列
-    // return: 若传播路径成立，返回Path对象；否则返回null
+    // 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟戒传锟斤拷路锟斤拷()
+    // @pt:锟斤拷锟斤拷锟斤拷锟竭碉拷
+    // @pr:锟斤拷锟斤拷锟斤拷锟竭碉拷
+    // @surfaces:锟劫讹拷锟脚号达拷锟斤拷路锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
+    // return: 锟斤拷锟斤拷锟斤拷路锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷Path锟斤拷锟襟；凤拷锟津返伙拷null
     bool getReflectPath(const Point& pt, const Point& pr, const vector<Surface>& surfaces);
 
-	// 加入路径并排序
-    // @newPath:新加入的传播路径
-    // @paths:原有传播路径集
+	// 锟斤拷锟斤拷路锟斤拷锟斤拷锟斤拷锟斤拷
+    // @newPath:锟铰硷拷锟斤拷锟侥达拷锟斤拷路锟斤拷
+    // @paths:原锟叫达拷锟斤拷路锟斤拷锟斤拷
     void insertPath(const Path& newPath);
 
-	// 加入绕射路径并排序
-    // @newDiffractPath:新加入的传播路径
+	// 锟斤拷锟斤拷锟斤拷锟斤拷路锟斤拷锟斤拷锟斤拷锟斤拷
+    // @newDiffractPath:锟铰硷拷锟斤拷锟侥达拷锟斤拷路锟斤拷
     void insertDiffractPath(const DiffractPath& newDiffractPath);
 	
-	// 计算振幅衰落
+	// 锟斤拷锟斤拷锟斤拷锟斤拷衰锟斤拷
 	bool calculateAmplitude();
 
-	// 获取能量最强的路径向量
+	// 锟斤拷取锟斤拷锟斤拷锟斤拷强锟斤拷路锟斤拷锟斤拷锟斤拷
 	vector<Path> getStrongestPaths() const;
 
-	// 计算t时刻的信道冲击响应
+	// 锟斤拷锟斤拷t时锟教碉拷锟脚碉拷锟斤拷锟斤拷锟斤拷应
 	bool calculateImpulseResponse(double t);
     
-	// 计算t时刻绕射路径的的信道冲击响应
+	// 锟斤拷锟斤拷t时锟斤拷锟斤拷锟斤拷路锟斤拷锟侥碉拷锟脚碉拷锟斤拷锟斤拷锟斤拷应
 	bool calculateDiffractImpulseResponse(double t);
 
-	// 计算t时刻混合路径的的信道冲击响应
+	// 锟斤拷锟斤拷t时锟教伙拷锟斤拷路锟斤拷锟侥碉拷锟脚碉拷锟斤拷锟斤拷锟斤拷应
 	bool calculateMixImpulseResponse(double t);
 
-	// 计算t时刻平面散射路径的的信道冲击响应
+	// 锟斤拷锟斤拷t时锟斤拷平锟斤拷散锟斤拷路锟斤拷锟侥碉拷锟脚碉拷锟斤拷锟斤拷锟斤拷应
 	bool calculateSurfaceScatterImpulseResponse(double t);
 
-	// 计算t时刻树木散射路径的的信道冲击响应
+	// 锟斤拷锟斤拷t时锟斤拷锟斤拷木散锟斤拷路锟斤拷锟侥碉拷锟脚碉拷锟斤拷锟斤拷锟斤拷应
 	bool calculateTreeScatterImpulseResponse(double t);
 
 
-	// 显示路径
+	// 锟斤拷示路锟斤拷
 	void displayPath();
 
-	// 显示路径的水平垂直极化方向的脉冲响应
+	// 锟斤拷示路锟斤拷锟斤拷水平锟斤拷直锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷应
 	void displayPathIR();
 
-	// 显示路径的垂直极化方向的脉冲响应
+	// 锟斤拷示路锟斤拷锟侥达拷直锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷应
 	void displayPathVIR();
-	// 显示路径的水平极化方向的脉冲响应
+	// 锟斤拷示路锟斤拷锟斤拷水平锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷应
 	void displayPathHIR();
-	// 显示采样的冲击响应
+	// 锟斤拷示锟斤拷锟斤拷锟侥筹拷锟斤拷锟斤拷应
 	void displayPathsSampleIR();
 
-	// 显示绕射路径的垂直极化方向的脉冲响应
+	// 锟斤拷示锟斤拷锟斤拷路锟斤拷锟侥达拷直锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷应
 	void displayDiffractPathVIR();
-	// 显示绕射路径的水平极化方向的脉冲响应
+	// 锟斤拷示锟斤拷锟斤拷路锟斤拷锟斤拷水平锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷应
 	void displayDiffractPathHIR();
-	// 显示采样的冲击响应
+	// 锟斤拷示锟斤拷锟斤拷锟侥筹拷锟斤拷锟斤拷应
 	void displayDiffractPathsSampleIR();
 
-	// 显示混合路径的垂直极化方向的脉冲响应
+	// 锟斤拷示锟斤拷锟斤拷路锟斤拷锟侥达拷直锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷应
 	void displayMixPathVIR();
-	// 显示混合路径的水平极化方向的脉冲响应
+	// 锟斤拷示锟斤拷锟斤拷路锟斤拷锟斤拷水平锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷应
 	void displayMixPathHIR();
-	// 显示采样的冲击响应
+	// 锟斤拷示锟斤拷锟斤拷锟侥筹拷锟斤拷锟斤拷应
 	void displayMixPathsSampleIR();
 
-	// 显示平面散射路径的垂直极化方向的脉冲响应
+	// 锟斤拷示平锟斤拷散锟斤拷路锟斤拷锟侥达拷直锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷应
 	void displaySurfaceScatterPathVIR();
-	// 显示平面散射路径的水平极化方向的脉冲响应
+	// 锟斤拷示平锟斤拷散锟斤拷路锟斤拷锟斤拷水平锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷应
 	void displaySurfaceScatterPathHIR();
-	// 显示采样的冲击响应
+	// 锟斤拷示锟斤拷锟斤拷锟侥筹拷锟斤拷锟斤拷应
 	void displaySurfaceScatterPathsSampleIR();
 
-	// 显示树木散射路径的垂直极化方向的脉冲响应
+	// 锟斤拷示锟斤拷木散锟斤拷路锟斤拷锟侥达拷直锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷应
 	void displayTreeScatterPathVIR();
-	// 显示树木散射路径的水平极化方向的脉冲响应
+	// 锟斤拷示锟斤拷木散锟斤拷路锟斤拷锟斤拷水平锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷应
 	void displayTreeScatterPathHIR();
-	// 显示树木散射路径的振幅
+	// 锟斤拷示锟斤拷木散锟斤拷路锟斤拷锟斤拷锟斤拷锟斤拷
 	void displayTreeScatterPathsAmplitude();
-	// 显示采样的冲击响应
+	// 锟斤拷示锟斤拷锟斤拷锟侥筹拷锟斤拷锟斤拷应
 	void displayTreeScatterPathsSampleIR();
 	
 	void displayResult();
-	// 显示采样的冲击响应
+	// 锟斤拷示锟斤拷锟斤拷锟侥筹拷锟斤拷锟斤拷应
 	void displaySampleIR();
-	// 显示信道脉冲
+	// 锟斤拷示锟脚碉拷锟斤拷锟斤拷
 	void displayIR();
 
-	// 显示输入模型参数
+	// 锟斤拷示锟斤拷锟斤拷模锟酵诧拷锟斤拷
 	void displayModel();
 
-	// 结果显示到excel中的格式
+	// 锟斤拷锟斤拷锟斤拷示锟斤拷excel锟叫的革拷式
 	void displayModelExcel();
 
-	// 显示刃形，excel格式
+	// 锟斤拷示锟斤拷锟轿ｏ拷excel锟斤拷式
 	void displayEdgesExcel();
 
-	// 显示树木，excel格式
+	// 锟斤拷示锟斤拷木锟斤拷excel锟斤拷式
 	void displayTreesExcel();
 	
-	// 显示各路径总长
+	// 锟斤拷示锟斤拷路锟斤拷锟杰筹拷
 	void displayPathsLength();
 
 
-	// 显示树木散射各路径总长
+	// 锟斤拷示锟斤拷木散锟斤拷锟斤拷路锟斤拷锟杰筹拷
 	void displayTreeScatterPathsLength();
 
 	vector<LeafScatterPath> getLeafScatterPaths() {
 	    return this->leafScatterPaths;
 	};
-	// 显示最大时延
+	// 锟斤拷示锟斤拷锟斤拷时锟斤拷
 	void displayMaxDelay();
 
 	Vehicle getTransmitter() {
