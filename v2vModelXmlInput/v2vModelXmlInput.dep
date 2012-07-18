@@ -1,0 +1,56 @@
+# Microsoft Developer Studio Generated Dependency File, included by v2vModelXmlInput.mak
+
+.\main.cpp : \
+	"..\base.h"\
+	"..\diffraction.h"\
+	"..\model.h"\
+	".\tinystr.h"\
+	".\tinyxml.h"\
+	".\xmlhelper.h"\
+	
+
+..\..\..\..\..\Projects\v2vModel\v2vModel\tinystr.cpp : \
+	"..\..\..\..\..\Projects\v2vModel\v2vModel\tinystr.h"\
+	
+
+..\..\..\..\..\Projects\v2vModel\v2vModel\tinyxml.cpp : \
+	"..\..\..\..\..\Projects\v2vModel\v2vModel\tinystr.h"\
+	"..\..\..\..\..\Projects\v2vModel\v2vModel\tinyxml.h"\
+	
+
+..\..\..\..\..\Projects\v2vModel\v2vModel\tinyxmlerror.cpp : \
+	"..\..\..\..\..\Projects\v2vModel\v2vModel\tinystr.h"\
+	"..\..\..\..\..\Projects\v2vModel\v2vModel\tinyxml.h"\
+	
+
+..\..\..\..\..\Projects\v2vModel\v2vModel\tinyxmlparser.cpp : \
+	"..\..\..\..\..\Projects\v2vModel\v2vModel\tinystr.h"\
+	"..\..\..\..\..\Projects\v2vModel\v2vModel\tinyxml.h"\
+	
+
+..\..\..\..\..\Projects\v2vModel\v2vModel\xmlHelper.cpp : \
+	"..\..\..\..\..\Projects\v2vModel\v2vModel\model.h"\
+	"..\..\..\..\..\Projects\v2vModel\v2vModel\xmlHelper.h"\
+	
+
+..\auto_model.cpp : \
+	"..\auto_model.h"\
+	"..\base.h"\
+	"..\diffraction.h"\
+	"..\model.h"\
+	
+
+..\base.cpp : \
+	"..\base.h"\
+	
+
+..\diffraction.cpp : \
+	"..\base.h"\
+	"..\diffraction.h"\
+	
+
+..\model.cpp : \
+	"..\base.h"\
+	"..\diffraction.h"\
+	"..\model.h"\
+	

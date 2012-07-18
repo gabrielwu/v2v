@@ -1,0 +1,40 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: v2vModel - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\wt\AppData\Local\Temp\RSP8A36.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/v2vModel.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\研究生\车载通讯\project\v2vModel\mainExcel.cpp"
+"D:\研究生\车载通讯\project\v2vModel\auto_model.cpp"
+"D:\研究生\车载通讯\project\v2vModel\model.cpp"
+]
+Creating command line "cl.exe @C:\Users\wt\AppData\Local\Temp\RSP8A36.tmp" 
+Creating temporary file "C:\Users\wt\AppData\Local\Temp\RSP8A37.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/v2vModel.pdb" /debug /machine:I386 /out:"Debug/v2vModel.exe" /pdbtype:sept 
+".\Debug\mainExcel.obj"
+".\Debug\auto_model.obj"
+".\Debug\base.obj"
+".\Debug\diffraction.obj"
+".\Debug\model.obj"
+]
+Creating command line "link.exe @C:\Users\wt\AppData\Local\Temp\RSP8A37.tmp"
+<h3>Output Window</h3>
+Compiling...
+auto_model.cpp
+model.cpp
+mainExcel.cpp
+Linking...
+
+
+
+<h3>Results</h3>
+v2vModel.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
