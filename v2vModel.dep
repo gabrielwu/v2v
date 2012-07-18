@@ -1,0 +1,29 @@
+# Microsoft Developer Studio Generated Dependency File, included by v2vModel.mak
+
+.\mainExcel.cpp : \
+	".\base.h"\
+	".\diffraction.h"\
+	".\model.h"\
+	
+
+.\auto_model.cpp : \
+	".\auto_model.h"\
+	".\base.h"\
+	".\diffraction.h"\
+	".\model.h"\
+	
+
+.\base.cpp : \
+	".\base.h"\
+	
+
+.\diffraction.cpp : \
+	".\base.h"\
+	".\diffraction.h"\
+	
+
+.\model.cpp : \
+	".\base.h"\
+	".\diffraction.h"\
+	".\model.h"\
+	

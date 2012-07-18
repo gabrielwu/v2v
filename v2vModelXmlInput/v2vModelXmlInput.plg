@@ -1,0 +1,57 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: v2vModelXmlInput - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\wt\AppData\Local\Temp\RSPD7BA.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /FR"Debug/" /Fp"Debug/v2vModelXmlInput.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\研究生\车载通讯\project\v2vModel\model.cpp"
+]
+Creating command line "cl.exe @C:\Users\wt\AppData\Local\Temp\RSPD7BA.tmp" 
+Creating temporary file "C:\Users\wt\AppData\Local\Temp\RSPD7BB.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/v2vModelXmlInput.pdb" /debug /machine:I386 /out:"Debug/v2vModelXmlInput.exe" /pdbtype:sept 
+".\Debug\main.obj"
+".\Debug\tinystr.obj"
+".\Debug\tinyxml.obj"
+".\Debug\tinyxmlerror.obj"
+".\Debug\tinyxmlparser.obj"
+".\Debug\xmlHelper.obj"
+".\Debug\auto_model.obj"
+".\Debug\base.obj"
+".\Debug\diffraction.obj"
+".\Debug\model.obj"
+]
+Creating command line "link.exe @C:\Users\wt\AppData\Local\Temp\RSPD7BB.tmp"
+<h3>Output Window</h3>
+Compiling...
+model.cpp
+Linking...
+Creating temporary file "C:\Users\wt\AppData\Local\Temp\RSPD9ED.tmp" with contents
+[
+/nologo /o"Debug/v2vModelXmlInput.bsc" 
+".\Debug\main.sbr"
+".\Debug\tinystr.sbr"
+".\Debug\tinyxml.sbr"
+".\Debug\tinyxmlerror.sbr"
+".\Debug\tinyxmlparser.sbr"
+".\Debug\xmlHelper.sbr"
+".\Debug\auto_model.sbr"
+".\Debug\base.sbr"
+".\Debug\diffraction.sbr"
+".\Debug\model.sbr"]
+Creating command line "bscmake.exe @C:\Users\wt\AppData\Local\Temp\RSPD9ED.tmp"
+Creating browse info file...
+<h3>Output Window</h3>
+
+
+
+<h3>Results</h3>
+v2vModelXmlInput.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
