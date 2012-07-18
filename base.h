@@ -2,7 +2,7 @@
 #include <vector>
 #include "math.h"
 using namespace std;
-
+// base components
 const double C = 300000000;
 const double F = 5900000000;
 const double PI = 3.1415926;
