@@ -9,7 +9,12 @@ Direction Point::operator-(Point& p) {
 	double k = this->z - p.z;
 	return Direction(i, j, k);	
 }
-
+Direction Point::operator-(const Point& p) {
+	double i = this->x - p.x;
+	double j = this->y - p.y;
+	double k = this->z - p.z;
+	return Direction(i, j, k);	
+}
 Direction Point::operator+(Point& p) {
 	double i = this->x + p.x;
 	double j = this->y + p.y;
@@ -51,6 +56,7 @@ bool Point::operator>(Point& p) {
 double Point::calculateD(Direction& d) {
 	return -(this->operator*(d));
 }
+
 // Direction
 Direction Direction::operator+(Direction& d) {
 	double i = this->i + d.i;

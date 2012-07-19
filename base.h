@@ -25,11 +25,13 @@ public:
 	double operator *(Direction& d);
 	Point operator *(double m);
 	Direction operator -(Point& p);
+	Direction operator -(const Point& p);
 	bool operator>(Point& p);
 	bool operator<(Point& p);
 	
 	double calculateD(Direction& d);
     Point getSymmetricPoint (const Surface& s); 
+
 	void display() {
 		cout<<"("<<this->x<<","<<this->y<<","<<this->z<<")"<<endl;
 	}

@@ -117,6 +117,10 @@ SOURCE=..\diffraction.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\geometry.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\mainRandomModel.cpp
 # End Source File
 # Begin Source File
@@ -154,6 +158,10 @@ SOURCE=..\base.h
 # Begin Source File
 
 SOURCE=..\diffraction.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\geometry.h
 # End Source File
 # Begin Source File
 
