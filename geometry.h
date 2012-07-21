@@ -32,9 +32,10 @@ public:
 	BallPart(Point center = Point(), 
 		double radius = 1, 
 		Point sectionCenter = Point(), 
-		Direction sectionNVector = Direction(0, 0, 1), 
 		bool centerInside = true):
-	  center(center), radius(radius), sectionCenter(sectionCenter), sectionNVector(sectionNVector), centerInside(centerInside) {};
+	  center(center), radius(radius), sectionCenter(sectionCenter), centerInside(centerInside) {
+	    this->sectionNVector = (sectionCenter - center).getUnitDirection();
+	};
 	bool pointInside(const Point& p);
 };
 // 圆柱
@@ -61,3 +62,86 @@ public:
 	bool pointInside(const Point& p);
 };
 
+// 椭圆
+class Ellipse: public Geometry {
+private:
+	Point focus0;
+	Point focus1;
+	Point center;
+	double a;
+	double b;
+	double c;
+public:
+    Ellipse(Point focus0, Point focus1, double a, double b) {
+	    this->focus0 = focus0;
+		this->focus1 = focus1;
+		this->a = a;
+		this->b = b;
+		this->c = getDistance(focus0, focus1) / 2;
+		this->center = getCenterPoint(focus0, focus1);
+	};
+	bool pointInside(const Point& p);
+};
+// 部分椭圆
+class EllipsePart: public Geometry {
+private:
+	Point focus0;
+	Point focus1;
+	Point center;
+	double a;
+	double b;
+	double c;
+	Direction sectionNVector;
+	Point sectionCenter;
+	bool centerInside;
+public:
+    EllipsePart(Point focus0, Point focus1, double a, double b, Point sectionCenter, bool centerInside) {
+	    this->focus0 = focus0;
+		this->focus1 = focus1;
+		this->a = a;
+		this->b = b;
+		this->c = getDistance(focus0, focus1) / 2;
+		this->center = getCenterPoint(focus0, focus1);
+		this->sectionCenter = sectionCenter;
+		this->sectionNVector = (sectionCenter - center).getUnitDirection();
+		this->centerInside = centerInside;
+	};
+	bool pointInside(const Point& p);
+};
+
+// 长方体
+class Cuboid: public Geometry {
+private:
+	Point p0;
+	Point p1;
+	Point p2;
+	Point p3;
+	Point p4;
+	Point p5;
+	Point p6;
+	Point p7;
+	double length;
+	double width;
+	double height;
+	Direction vL;
+	Direction vW;
+	Direction vH;
+public:
+    Cuboid(Direction vL, Direction vW, Direction vH, Point p0) {
+		this->vL = vL;
+		this->vW = vW;
+		this->vH = vH;
+	    this->p0 = p0;
+        this->p1 = p0 + vL;
+		this->p2 = p0 + vW;
+		this->p3 = p0 + vH;
+		this->p4 = p0 + vL + vW + vH;
+		this->p5 = this->p4 - vL;
+		this->p6 = this->p4 - vW;
+		this->p7 = this->p4 - vH;
+		this->length = vL.getModule();
+		this->width = vW.getModule();
+		this->height = vH.getModule();
+	};
+    bool pointInside(const Point& p);
+};

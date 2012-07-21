@@ -15,6 +15,12 @@ Direction Point::operator-(const Point& p) {
 	double k = this->z - p.z;
 	return Direction(i, j, k);	
 }
+Point Point::operator-(const Direction& p) {
+	double i = this->x - p.i;
+	double j = this->y - p.j;
+	double k = this->z - p.k;
+	return Point(i, j, k);	
+}
 Direction Point::operator+(Point& p) {
 	double i = this->x + p.x;
 	double j = this->y + p.y;
@@ -39,6 +45,12 @@ Point Point::operator*(double m) {
 	double z = this->z * m;
 	return Point(x, y, z);	
 }
+Point Point::operator/(double m) {
+	double x = this->x / m;
+	double y = this->y / m;
+	double z = this->z / m;
+	return Point(x, y, z);	
+}
 bool Point::operator<(Point& p) {
     if (this->x < p.x && this->y < p.y && this->z < p.z) {
 	    return true;
@@ -58,6 +70,18 @@ double Point::calculateD(Direction& d) {
 }
 
 // Direction
+double Direction::operator*(Point& p) {
+	double x = this->i * p.x;
+	double y = this->j * p.y;
+	double z = this->k * p.z;
+	return (x + y + z);	
+}
+double Direction::operator*(const Point& p) {
+	double x = this->i * p.x;
+	double y = this->j * p.y;
+	double z = this->k * p.z;
+	return (x + y + z);	
+}
 Direction Direction::operator+(Direction& d) {
 	double i = this->i + d.i;
 	double j = this->j + d.j;
@@ -414,7 +438,12 @@ double getDistance(const Point& p0, const Point& p1) {
 double getDistanceByDirection(const Direction& d0, const Direction& d1) {
 	return sqrt(pow((d0.i - d1.i), 2) + pow((d0.j - d1.j), 2) + pow((d0.k - d1.k), 2));
 };
-
+Point getCenterPoint(const Point& p0, const Point& p1) {
+    double x = (p0.x + p1.x) / 2;
+    double y = (p0.y + p1.y) / 2;
+    double z = (p0.z + p1.z) / 2;
+	return Point(x, y, z);
+};
 
 // 获取点p关于面s的对称点pn
 Point* getSymmetricPoint (const Surface& s, const Point& p) {

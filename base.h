@@ -24,8 +24,10 @@ public:
 	Point operator +(Direction& d);
 	double operator *(Direction& d);
 	Point operator *(double m);
+	Point operator /(double m);
 	Direction operator -(Point& p);
 	Direction operator -(const Point& p);
+	Point operator -(const Direction& p);
 	bool operator>(Point& p);
 	bool operator<(Point& p);
 	
@@ -50,6 +52,8 @@ public:
 	Direction operator +(Direction& d);
 	Direction operator +=(Direction& d);
 	double operator *(Direction& d);
+	double operator *(Point& p);
+	double operator *(const Point& p);
 	Direction operator *(double module);
 	Direction operator *=(double module);
 	Direction operator ^(Direction& d);
@@ -271,6 +275,8 @@ double getDistance(const Point& p0, const Point& p1);
 // 获取两点间距离
 double getDistanceByDirection(const Direction& d0, const Direction& d1);
 
+// 获取两点连线的中点
+Point getCenterPoint(const Point& p0, const Point& p1);
 
 // 获取点p关于面s的对称点pn
 // @s:待检验反射面
