@@ -62,7 +62,7 @@ public:
 	bool pointInside(const Point& p);
 };
 
-// Õ÷‘≤
+// Õ÷«Ú
 class Ellipse: public Geometry {
 private:
 	Point focus0;
@@ -82,7 +82,7 @@ public:
 	};
 	bool pointInside(const Point& p);
 };
-// ≤ø∑÷Õ÷‘≤
+// ≤ø∑÷Õ÷«Ú
 class EllipsePart: public Geometry {
 private:
 	Point focus0;
