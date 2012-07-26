@@ -3,10 +3,14 @@
 #define BASE_H 
 #include "base.h"
 #endif 
+#ifndef GEOMETRY_H 
+#define GEOMETRY_H 
+#include "geometry.h"
+#endif 
 using namespace std;
 
-const double MERGE_DELAY = 10e-8;
-const double MERGE_DIRECTION_PROJECTION = 0.999; 
+const double MERGE_DELAY = 1e-7;
+const double MERGE_DIRECTION_PROJECTION = 0.99; 
 class Model;
 // 生成随机浮点数
 double randomDouble(double range[2]);
@@ -39,6 +43,7 @@ private:
 	Direction sunshineDirect; // 阳光方向（叶片法向量应与这个方向夹角尽可能小）
 	// TODO::叶子形状
     // TODO::树冠轮廓几何体
+	Geometry* crown;
 public:
     TreeConfig(	int depth,
 				Point rootPosition,
@@ -88,11 +93,12 @@ public:
 	    this->leafStalkLength[0] = leafStalkLength[0];
 	    this->leafStalkLength[1] = leafStalkLength[1];
 	    this->sunshineDirect = sunshineDirect;
+		this->crown = NULL;
 	};
 	
     TreeConfig(int depth = 3, Point p = Point(0, 0, 1)) {
 	    this->depth = 3;
-	    this->rootPosition = Point(0, 0, 0);
+	    this->rootPosition = p;
 	    this->trunkDirect = Direction(0, 0, 1);
 	    this->trunkRadius = 0.1;
 	    this->trunkLength = 10;
@@ -100,10 +106,10 @@ public:
 		this->branchFirstGrowPoint[1] = 0.7;
 	    this->branchLastGrowPoint[0] = 0.9;
 	    this->branchLastGrowPoint[1] = 1;
-	    this->growPointAmount[0] = 2;
-	    this->growPointAmount[1] = 4;
-	    this->growPointDivide[0] = 1;
-	    this->growPointDivide[1] = 1;
+	    this->growPointAmount[0] = 3;
+	    this->growPointAmount[1] = 3;
+	    this->growPointDivide[0] = 3;
+	    this->growPointDivide[1] = 3;
 	    this->growPointPercent[0] = 0.6;
 	    this->growPointPercent[1] = 0.8;
 	    this->branchAngleDrift[0] = 60;
@@ -120,8 +126,12 @@ public:
 	    this->leafStalkLength[0] = 0.05;
 	    this->leafStalkLength[1] = 0.1;
 	    this->sunshineDirect = Direction(0, 0, 1);
+		this->crown = NULL;
 	};
 	void display();
+	void setCrown(Geometry* c) {
+	    this->crown = c;
+	};
 	
 };
 class Scattering {

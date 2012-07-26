@@ -180,14 +180,25 @@ void RandomModel::treesProduce() {
 
 	
     TreeConfig *tConfig0 = new TreeConfig(3, Point(x, y, z));
-    TreeConfig *tConfig1 = new TreeConfig(3, Point(-x, y, z));
+    Geometry *crown = NULL;
+	///crown  = new Ball(Point(x, y, z+5), 8);
+	//crown  = new BallPart(Point(x, y, z+5), 8, Point(x, y, z+3));
+	//crown  = new Cylinder(Point(x, y, z+15), Point(x, y, z+5), 7);
+	//crown  = new Cone(Point(x, y, z+25), Point(x, y, z+5), 10);
+	//crown  = new Ellipse(Point(x, y, z+13), Point(x, y, z+1), 10, 8);
+	//crown  = new EllipsePart(Point(x, y, z+13), Point(x, y, z+1), 10, 8, Point(x, y, z+8), true);
+	crown  = new Cuboid(Direction(12,0,0), Direction(0,12,0), Direction(0,0,12), Point(x-3, y-4, z+5));
+    tConfig0->setCrown(crown);
+	/*
+	TreeConfig *tConfig1 = new TreeConfig(3, Point(-x, y, z));
     TreeConfig *tConfig2 = new TreeConfig(3, Point(x,this->length - y, z));
     TreeConfig *tConfig3 = new TreeConfig(3, Point(-x, this->length - y, z));
-
+	*/
 	Tree t0(tConfig0);
 	t0.generate();
 	t0.generateLeavesList();
-    Tree t1(tConfig1);	
+    /*
+	Tree t1(tConfig1);	
 	t1.generate();
 	t1.generateLeavesList();
     Tree t2(tConfig2);
@@ -196,11 +207,14 @@ void RandomModel::treesProduce() {
     Tree t3(tConfig3);
 	t3.generate();
 	t3.generateLeavesList();
-
+	*/
     this->trees.push_back(t0);
+
+	/*
 	this->trees.push_back(t1);
 	this->trees.push_back(t2);
 	this->trees.push_back(t3);
+	*/
 }
 void RandomModel::materialsProduce() {
 	Material m1(1.5, "glass"); // ²£Á§	

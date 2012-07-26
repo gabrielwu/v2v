@@ -62,6 +62,12 @@ void TreeConfig::display() {
 	cout<<"Ò¶Æ¬Ãæ»ý·¶Î§\t("<<this->leafArea[0]<<","<<this->leafArea[1]<<")"<<endl;
 	cout<<"Ò¶±ú³¤¶È·¶Î§\t("<<this->leafStalkLength[0]<<","<<this->leafStalkLength[1]<<")"<<endl;
 	cout<<"Ñô¹â·½Ïò\t";this->sunshineDirect.displayExcel();cout<<endl;
+	cout<<"Ê÷¹Ú"<<endl;
+	if (this->crown) {
+	   this->crown->display();
+	} else {
+	    cout<<"ÎÞ"<<endl;
+	}
 }
 bool TreeTrunkBranch::generateGrowPoints() {
 	//this->display();
@@ -204,7 +210,11 @@ bool GrowPoint::generateBranches(Direction fatherGrowDirect, double fatherLength
 		Direction growDirect = this->randomGrowDirect(fatherGrowDirect);
 		Point p0 = this->position;
 		Point p1 = this->position + growDirect * length;
-		TreeTrunkBranch *tb = new TreeTrunkBranch(p0, p1, this->depth, radius, this->config); 
+		int depth = this->depth;
+		if (this->config->crown && (!this->config->crown->pointInside(p1))) {
+		    depth = -1;
+		}
+		TreeTrunkBranch *tb = new TreeTrunkBranch(p0, p1, depth, radius, this->config); 
 		tb->generateGrowPoints();
 		branches.push_back(tb);
 	}
@@ -476,6 +486,9 @@ bool MergePathModel::mergeLeafScatterPath(vector<LeafScatterPath> allPath) {
 		}
 	}
     cout<<"merged paths size:"<<this->leafScatterMergePaths.size()<<endl;
+	cout<<"merge condition:"<<endl;
+	cout<<"Ê±ÑÓ²î\t"<<MERGE_DELAY<<"s"<<endl;
+	cout<<"¼Ð½ÇÓàÏÒ\t"<<MERGE_DIRECTION_PROJECTION<<endl;
 	return true;
 	
 }
@@ -666,7 +679,8 @@ void Tree::generateLeavesList() {
 	*/
 }
 void Tree::displayExcel() {
-    this->location.displayExcel();
+    this->location.display();
+	this->config->display();
 	cout<<endl;
 }
 bool TreeScatter::init() {

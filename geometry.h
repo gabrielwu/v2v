@@ -7,8 +7,9 @@ using namespace std;
 class Geometry {
 public:
 	Geometry() {};
-	virtual ~Geometry() = 0;
+	//virtual ~Geometry() = 0;
 	virtual bool pointInside(const Point& p) = 0;
+	virtual void display() = 0;
 };
 
 class Ball: public Geometry {
@@ -19,6 +20,7 @@ public:
 	Ball(Point center = Point(), double radius = 1):
 	  center(center), radius(radius) {};
 	bool pointInside(const Point& p);
+	void display();
 };
 
 class BallPart: public Geometry {
@@ -37,6 +39,7 @@ public:
 	    this->sectionNVector = (sectionCenter - center).getUnitDirection();
 	};
 	bool pointInside(const Point& p);
+	void display();
 };
 // Ô²Öù
 class Cylinder: public Geometry {
@@ -48,6 +51,7 @@ public:
 	Cylinder(Point topCenter = Point(0,0,1), Point bottomCenter = Point(0,0,0), double radius = 1):
 	  topCenter(topCenter), bottomCenter(bottomCenter), radius(radius) {};
 	bool pointInside(const Point& p);
+	void display();
 };
 
 // Ô²×¶
@@ -60,6 +64,7 @@ public:
 	Cone(Point top = Point(0,0,1), Point bottomCenter = Point(), double radius = 1):
 	  top(top), bottomCenter(bottomCenter), radius(radius) {};
 	bool pointInside(const Point& p);
+	void display();
 };
 
 // ÍÖÇò
@@ -81,6 +86,7 @@ public:
 		this->center = getCenterPoint(focus0, focus1);
 	};
 	bool pointInside(const Point& p);
+	void display();
 };
 // ²¿·ÖÍÖÇò
 class EllipsePart: public Geometry {
@@ -107,6 +113,7 @@ public:
 		this->centerInside = centerInside;
 	};
 	bool pointInside(const Point& p);
+	void display();
 };
 
 // ³¤·½Ìå
@@ -144,4 +151,5 @@ public:
 		this->height = vH.getModule();
 	};
     bool pointInside(const Point& p);
+	void display();
 };

@@ -53,7 +53,6 @@ int main(int argc, char *argv[] ) {
 		model.calculateTreeScatterPaths();
 		model.calculateLeafScatterPaths();
 		model.displayModelExcel();
-		model.displayResult();
 
 		cout<<"-----------------"<<endl;
 		MergePathModel mergePathModel;
@@ -61,6 +60,7 @@ int main(int argc, char *argv[] ) {
 		mergePathModel.mergeLeafScatterPath(model.getLeafScatterPaths());
 		mergePathModel.displayLeafScatterMergePathsSampleIR();
         
+		model.displayResult();
 
 		of.flush();
 		of.close();
