@@ -5,4 +5,11 @@
 *.pdb
 *.idb
 *.exe
+*.dep
+*.plg
+*.mak
+*.ncb
+*.opt
+*.dsp
+*.dsw
 
