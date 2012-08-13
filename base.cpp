@@ -1,8 +1,55 @@
 #include "math.h"
 #include "base.h"
-
+double dBtoPercent(double dBvalue) {
+    return pow(10, dBvalue / 20);
+};
+ComplexNumber ComplexNumber::operator +(ComplexNumber& c) {
+    double re = this->re + c.re;
+	double im = this->im + c.im;
+	return ComplexNumber(re, im);
+}
+ComplexNumber ComplexNumber::operator -(ComplexNumber& c) {
+    double re = this->re - c.re;
+	double im = this->im - c.im;
+	return ComplexNumber(re, im);
+}	
+ComplexNumber ComplexNumber::operator -() {
+    double re = -this->re;
+	double im = -this->im;
+	return ComplexNumber(re, im);
+}
+ComplexNumber ComplexNumber::operator *(ComplexNumber& c) {
+    double re = this->re * c.re - this->im * c.im;
+	double im = this->im * c.re + this->re * c.im;
+	return ComplexNumber(re, im);
+}
+ComplexNumber ComplexNumber::operator /(ComplexNumber& c) {
+	double d = pow(c.re, 2) + pow(c.im, 2);
+    double re = (this->re * c.re + this->im * c.im) / d;
+	double im = (this->im * c.re - this->re * c.im) / d;
+	return ComplexNumber(re, im);
+}
+ComplexNumber ComplexNumber::operator +(double c) {
+    double re = this->re + c;
+	double im = this->im;
+	return ComplexNumber(re, im);
+}
+ComplexNumber ComplexNumber::operator -(double c) {
+    double re = this->re - c;
+	double im = this->im;
+	return ComplexNumber(re, im);
+}	
+ComplexNumber ComplexNumber::operator *(double c) {
+    double re = this->re * c;
+	double im = this->im * c;
+	return ComplexNumber(re, im);
+}
+ComplexNumber ComplexNumber::operator /(double c) {
+    double re = this->re / c;
+	double im = this->im / c;
+	return ComplexNumber(re, im);
+}
 // Point 
-
 Direction Point::operator-(Point& p) {
 	double i = this->x - p.x;
 	double j = this->y - p.y;

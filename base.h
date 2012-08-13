@@ -12,6 +12,30 @@ const int NUM_OF_PATHS = 7;
 const int NUM_OF_REFLECTS = 3;
 const int NUM_OF_SCATTER = 1;
 class Surface;
+
+double dBtoPercent(double dBvalue);
+class ComplexNumber {
+	friend class ComplexNumber;
+private:
+	double im,re;
+public:
+	ComplexNumber(double re, double im):re(re), im(im) {};
+	double Re() {
+	    return this->re;
+	};
+	double Im() {
+	    return this->im;
+	};
+    ComplexNumber operator +(ComplexNumber& c);
+    ComplexNumber operator -(ComplexNumber& c);
+    ComplexNumber operator -();
+    ComplexNumber operator *(ComplexNumber& c);
+    ComplexNumber operator /(ComplexNumber& c);
+    ComplexNumber operator +(double c);
+    ComplexNumber operator -(double c);
+    ComplexNumber operator *(double c);
+    ComplexNumber operator /(double c);
+};
 // µã
 class Point {
 	friend class Surface;

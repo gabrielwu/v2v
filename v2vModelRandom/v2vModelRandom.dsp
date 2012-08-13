@@ -147,6 +147,10 @@ SOURCE=..\scatter_path.cpp
 
 SOURCE=..\scattering.cpp
 # End Source File
+# Begin Source File
+
+SOURCE=..\weather.cpp
+# End Source File
 # End Group
 # Begin Group "Header Files"
 
@@ -186,6 +190,10 @@ SOURCE=..\v2vModelXmlInput\tinystr.h
 # Begin Source File
 
 SOURCE=..\v2vModelXmlInput\tinyxml.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\weather.h
 # End Source File
 # Begin Source File
 
