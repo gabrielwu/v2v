@@ -54,11 +54,10 @@ private:
 	double ah; // 水平极化时的a
 	double a_ele; // 入射波仰角
 	double a_tilt; // 相对于水平的极化倾角
+
+	void calculateFadeRate();
 public:
 	Rain(double f, double r, double a_ele, double a_tilt):Weather(f),r(r),a_ele(a_ele),a_tilt(a_tilt){};
 	void init();   
-	void setAngles(double a_ele, double a_tilt) {
-		this->a_ele = a_ele;
-		this->a_tilt = a_tilt;
-	};
+	void resetAngles(double a_ele, double a_tilt);
 };
