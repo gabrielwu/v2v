@@ -6,13 +6,27 @@
 --------------------Configuration: v2vModelRandom - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\Users\wt\AppData\Local\Temp\RSP6854.tmp" with contents
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP4E8.tmp" with contents
 [
 /nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /FR"Debug/" /Fp"Debug/v2vModelRandom.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"D:\v2vModel\random_model.cpp"
+"G:\v2vModel\v2v\v2vModelXmlInput\tinystr.cpp"
+"G:\v2vModel\v2v\v2vModelXmlInput\tinyxml.cpp"
+"G:\v2vModel\v2v\v2vModelXmlInput\tinyxmlerror.cpp"
+"G:\v2vModel\v2v\v2vModelXmlInput\tinyxmlparser.cpp"
+"G:\v2vModel\v2v\v2vModelXmlInput\xmlHelper.cpp"
+"G:\v2vModel\v2v\base.cpp"
+"G:\v2vModel\v2v\diffraction.cpp"
+"G:\v2vModel\v2v\geometry.cpp"
+"G:\v2vModel\v2v\v2vModelRandom\mainRandomModel.cpp"
+"G:\v2vModel\v2v\model.cpp"
+"G:\v2vModel\v2v\model_io.cpp"
+"G:\v2vModel\v2v\random_model.cpp"
+"G:\v2vModel\v2v\random_model_io.cpp"
+"G:\v2vModel\v2v\scatter_path.cpp"
+"G:\v2vModel\v2v\scattering.cpp"
 ]
-Creating command line "cl.exe @C:\Users\wt\AppData\Local\Temp\RSP6854.tmp" 
-Creating temporary file "C:\Users\wt\AppData\Local\Temp\RSP6855.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP4E8.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP4E9.tmp" with contents
 [
 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/v2vModelRandom.pdb" /debug /machine:I386 /out:"Debug/v2vModelRandom.exe" /pdbtype:sept 
 .\Debug\tinystr.obj
@@ -31,10 +45,24 @@ kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32
 .\Debug\scatter_path.obj
 .\Debug\scattering.obj
 ]
-Creating command line "link.exe @C:\Users\wt\AppData\Local\Temp\RSP6855.tmp"
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP4E9.tmp"
 <h3>Output Window</h3>
 Compiling...
+tinystr.cpp
+tinyxml.cpp
+tinyxmlerror.cpp
+tinyxmlparser.cpp
+xmlHelper.cpp
+base.cpp
+diffraction.cpp
+geometry.cpp
+mainRandomModel.cpp
+model.cpp
+model_io.cpp
 random_model.cpp
+random_model_io.cpp
+scatter_path.cpp
+scattering.cpp
 Linking...
 
 
