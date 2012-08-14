@@ -59,3 +59,4 @@ void Rain::resetAngles(double a_ele, double a_tilt) {
 	this->a_tilt = a_tilt;
 	this->calculateFadeRate();
 }
+

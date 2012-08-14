@@ -7,7 +7,7 @@ using namespace std;
 class Geometry {
 public:
 	Geometry() {};
-	//virtual ~Geometry() = 0;
+	//virtual ~Geometry() = 0;!!!
 	virtual bool pointInside(const Point& p) = 0;
 	virtual void display() = 0;
 };
