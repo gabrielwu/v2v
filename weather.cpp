@@ -26,13 +26,23 @@ void Storm::calculateDc() {
 	dc_sw = &(*dc_s * ((*dc_w - *dc_s) * 3 * v / (*dc_w + *dc_s * 2) / ( - (*dc_w - *dc_s) * v / (*dc_w + *dc_s *2) + 1) + 1));
 }
 void Storm::calculateFadeRate() {
-	this->fadeRate = 0.4288e6 * 
+	this->fadeRate = -0.4288e6 * 
 		(dc_sw->Im() / (pow(dc_sw->Re() + 2, 2) + pow(dc_sw->Im(), 2))) * f * n * exp(3 * e + 4.5 * m * m);
 }
 void Storm::calculateShiftRate() {
 	this->shiftRate = 26.2 * ((dc_sw->Re() - 1) * (dc_sw->Re() + 2) + pow(dc_sw->Im(), 2)) 
 		/ (pow(dc_sw->Re(), 2) + pow(dc_sw->Im(), 2)) 
 		* n * exp(3 * e + 4.5 * m * m);
+}
+void Storm::display() {
+	cout<<"沙尘天气参数"<<endl;
+    cout<<"沙尘密度（1/立方米）\t"<<this->n<<endl;
+    cout<<"气温（摄氏度）\t"<<this->t<<endl;
+    cout<<"沙粒含水百分比\t"<<this->v<<endl;
+    cout<<"lnD的期望（D为沙粒直径）\t"<<this->e<<endl;
+    cout<<"lnD的标准差（D为沙粒直径）\t"<<this->m<<endl;
+	cout<<"衰减率（dB/km）：\t"<<this->fadeRate<<endl;
+	cout<<"相移率（°/km）：\t"<<this->shiftRate<<endl;
 }
 double Weather::fadePercent(double len) {
 	double fadeDB = this->fadeRate * (len / 1000);
@@ -45,7 +55,7 @@ double Storm::shiftRad(double len) {
 void Rain::calculateFadeRate() {
 	this->k = (kh + kv + (kh - kv) * pow(cos(a_ele), 2) * cos(2 * a_tilt)) / 2;
 	this->a = (kh * ah + kv * av + (kh * ah - kv * av) * pow(cos(a_ele), 2) * cos(2 * a_tilt)) / (2 * k);
-	this->fadeRate = k * pow(r, a);
+	this->fadeRate = -k * pow(r, a);
 }
 void Rain::init() {
     this->kh = 4.0848e-5 * pow(this->f, (1.4550 + 0.3952 * log(this->f)));
@@ -58,4 +68,8 @@ void Rain::resetAngles(double a_ele, double a_tilt) {
 	this->a_ele = a_ele;
 	this->a_tilt = a_tilt;
 	this->calculateFadeRate();
+}
+void Rain::display() {
+	cout<<"降雨天气参数"<<endl;
+    cout<<"降雨量（mm/h）\t"<<this->r<<endl;
 }

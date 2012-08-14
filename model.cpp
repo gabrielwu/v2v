@@ -132,6 +132,17 @@ int Path::getNumOfReflect() const {
 vector<Reflection> Path::getReflections() {
 	return this->reflections;
 }
+void Path::stormEffect(Storm& storm) {
+    this->stormFade = storm.fadePercent(this->totalLength);
+	this->stormShift = storm.shiftRad(this->totalLength);
+	this->amplitudeReceive[0] *= this->stormFade;
+	this->amplitudeReceive[1] *= this->stormFade;
+	this->vAmplitude *= this->stormFade;
+	this->hAmplitude *= this->stormFade;
+}
+void Path::rainEffect(Rain& rain) {
+
+}
 
 int Model::isLOSExist() {
     //vector<DiffractPath>::const_iterator iterDiffractPath = this->diffractPaths.begin();
@@ -824,6 +835,13 @@ void Model::insertDiffractPath(const DiffractPath& newDiffractPath) {
 		}
 	}
 };
+bool Model::calculateStormPaths() {
+    vector<Path>::iterator iter = this->strongestPaths.begin();
+	for (; iter < this->strongestPaths.end(); iter++) {
+	    iter->stormEffect(*(this->storm));
+	}
+	return true;
+}
 bool Model::calculateImpulseResponse(double t) {
 	vector<Path>::iterator iterPath = this->strongestPaths.begin();
 	double baseTao = iterPath->getDelayTime();
@@ -839,6 +857,8 @@ bool Model::calculateImpulseResponse(double t) {
 			// TODO:not sure
 			double phaseShift = 2 * PI / iterPath->getWaveLength() * C * tt;
 			phaseShift += 2 * PI / iterPath->getWaveLength() * iterPath->getVDoppler() * tt;
+			// TODO:相移往哪方向移动
+			phaseShift += iterPath->stormShift; 
 			//double vInitPhase = iterPath->getVInitPhase();
 			//double hInitPhase = iterPath->getHInitPhase();
 			iterPath->setVPhaseShift(phaseShift);
@@ -1188,110 +1208,6 @@ void Model::displayPath() {
 		}
 		
 	}
-}
-// TODO:unsed
-void Model::displayIR() {
-}
-void Model::displayModel() {
-	cout<<"Tx:"<<endl;
-	this->transmitter.displayVehichle();
-	cout<<"Rx:"<<endl;
-	this->receiver.displayVehichle();
-    cout<<"Surfaces:"<<this->surfaces.size()<<endl;
-	for (unsigned i = 0; i < this->surfaces.size(); i++) {
-		cout<<"  "<<(i + 1)<<"th surface:"<<endl;
-		this->surfaces[i].display(4);
-	}
-	cout<<"transmit antennas:"<<this->tAntennas.size()<<endl;
-	for (unsigned j = 0; j < this->tAntennas.size(); j++) {
-		cout<<"  "<<(j + 1)<<"th atenna element:"<<endl;
-		this->tAntennas[j].display(4);
-	}
-} 
-void Model::displayModelExcel() {
-	int i;
-	cout<<"Input"<<endl;
-
-	cout<<"Vehicles\t"<<"location\t"<<"direction\t"<<"velocity\t"<<endl;
-	cout<<"Tx\t";
-	this->transmitter.displayVehichleExcel();
-	cout<<"Rx\t";
-	this->receiver.displayVehichleExcel();
-
-	cout<<"transmit antennas\t"<<"direction\t"<<"polarization\t"<<"relative location\t"<<"amplitude(power related)\t"<<endl;
-	for (i = 0; i < this->tAntennas.size(); i++) {
-		cout<<"ta"<<(i + 1)<<"\t";
-		this->tAntennas[i].displayExcel();
-	}
-	cout<<"recieve antennas\t"<<"direction\t"<<"polarization\t"<<"relative location\t"<<"amplitude(power related)\t"<<endl;
-	for (i = 0; i < this->rAntennas.size(); i++) {
-		cout<<"ra"<<(i + 1)<<"\t";
-		this->rAntennas[i].displayExcel();
-	}
-    cout<<"reflect related:"<<endl;
-	cout<<"Surfaces\t"<<"p0\t"<<"p1\t"<<"material\t"<<"refractive index\t"<<"max protubertance height\t"<<"protuber Height Standard Deviation\t"<<endl;
-	for (i = 0; i < this->surfaces.size(); i++) {
-		cout<<"s"<<(i + 1)<<"\t";
-		this->surfaces[i].displayExcel();
-	}
-
-	displayEdgesExcel();
-	displayTreesExcel();
-} 
-void Model::displayEdgesExcel() {
-	cout<<"diffract related:"<<endl;
-	cout<<"Edges\t"<<"p0\t"<<"p1\t"<<"pn0\t"<<"pn1\t"<<endl;
-	vector<Edge>::iterator iterEdges = this->edges.begin();
-	int i = 1;
-	for (; iterEdges < this->edges.end(); iterEdges++) {
-		cout<<"e"<<i++<<"\t";
-		iterEdges->displayExcel();
-	}
-} 
-void Model::displayTreesExcel() {
-	cout<<"scatter related:"<<endl;
-	cout<<"Trees\t"<<"location\t"<<endl;
-	vector<Tree>::iterator iterTree = this->trees.begin();
-	int i = 1;
-	for (; iterTree < this->trees.end(); iterTree++) {
-		cout<<""<<i++<<"\t";
-		iterTree->displayExcel();
-	}
-} 
-void Model::displayMaxDelay() {
-	cout<<"Vehicles\t"<<"location\t"<<"direction\t"<<"velocity\t"<<endl;
-	cout<<"Tx\t";
-	this->transmitter.displayVehichleExcel();
-	cout<<"Rx\t";
-	this->receiver.displayVehichleExcel();
-
-    cout<<"Surfaces\t"<<"p0\t"<<"p1\t"<<"material\t"<<"refractive index\t"<<endl;
-	for (unsigned i = 0; i < this->surfaces.size(); i++) {
-		cout<<"s"<<(i + 1)<<"\t";
-		this->surfaces[i].displayExcel();
-	}
-	cout<<"max delay:\t";
-	int size = this->strongestPaths.size();
-	double firstDelay = this->strongestPaths[0].getDelayTime();
-	double lastDelay = this->strongestPaths[size - 1].getDelayTime();
-	double maxDelay = lastDelay - firstDelay ;
-	cout<<maxDelay<<"s\t";
-	cout<<endl;
-}
-void Model::displayPathsLength() {
-    vector<Path>::iterator iterPaths = this->strongestPaths.begin();
-	for (; iterPaths < this->strongestPaths.end(); iterPaths++) {
-	    iterPaths->displayPathTotalLength();
-		cout<<"\t";
-	}
-	cout<<endl;
-}
-void Model::displayTreeScatterPathsLength() {
-    vector<TreeScatterPath>::iterator iterPaths = this->treeScatterPaths.begin();
-	for (; iterPaths < this->treeScatterPaths.end(); iterPaths++) {
-	    iterPaths->displayPathTotalLength();
-	}
-	cout<<endl;
 }
 double Reflection::getLength() const {
 	return this->length;

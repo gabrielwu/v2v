@@ -41,6 +41,7 @@ public:
 	};
 	void init();
 	double shiftRad(double len); // 相移，角度转为弧度
+	void display();
 };
 // 降雨
 class Rain: public Weather {
@@ -57,7 +58,8 @@ private:
 
 	void calculateFadeRate();
 public:
-	Rain(double f, double r, double a_ele, double a_tilt):Weather(f),r(r),a_ele(a_ele),a_tilt(a_tilt){};
+	Rain(double f, double r, double a_ele=0, double a_tilt=0):Weather(f),r(r),a_ele(a_ele),a_tilt(a_tilt){};
 	void init();   
 	void resetAngles(double a_ele, double a_tilt);
+	void display();
 };

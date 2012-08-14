@@ -46,21 +46,26 @@ int main(int argc, char *argv[] ) {
 
 		model.setSampleInfo(6, 0.01);
 
+		model.displayModelExcel();
+
 		model.calculateDiffractPaths();
 		model.calculateStrongestPaths();
+		/*
 		model.calculateSurfaceScatterPaths();
 		model.calculateMixPaths();	
 		model.calculateTreeScatterPaths();
 		model.calculateLeafScatterPaths();
-		model.displayModelExcel();
 
 		cout<<"-----------------"<<endl;
 		MergePathModel mergePathModel;
 		mergePathModel.setSampleInfo(model.getSampleCount(), model.getSampleInterval());
 		mergePathModel.mergeLeafScatterPath(model.getLeafScatterPaths());
 		mergePathModel.displayLeafScatterMergePathsSampleIR();
-        
-		model.displayResult();
+        */
+		model.displaySampleInfo();
+		model.displayPathsSampleIR();
+		model.calculateStormPaths();
+		model.displayPathsSampleIR();
 
 		of.flush();
 		of.close();
