@@ -64,7 +64,7 @@ void Rain::init() {
     this->av = 0.8158 + 0.2850 / (pow((log(this->f) - 2.0775), 2) + 0.5694);
 	this->calculateFadeRate();
 }
-void Rain::resetAngles(double a_ele, double a_tilt) {
+void Rain::resetAnglesFadeRate(double a_ele, double a_tilt) {
 	this->a_ele = a_ele;
 	this->a_tilt = a_tilt;
 	this->calculateFadeRate();

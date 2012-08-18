@@ -56,6 +56,8 @@ private:
 	double length;
 	double width;
 	double margin;
+	// 天气参数
+	double rainIntensity; // 降雨强度
 	
 	vector<Tree> trees; // 树木
 	vector<Material> materials; // 材料向量

@@ -60,6 +60,6 @@ private:
 public:
 	Rain(double f, double r, double a_ele=0, double a_tilt=0):Weather(f),r(r),a_ele(a_ele),a_tilt(a_tilt){};
 	void init();   
-	void resetAngles(double a_ele, double a_tilt);
+	void resetAnglesFadeRate(double a_ele, double a_tilt);
 	void display();
 };

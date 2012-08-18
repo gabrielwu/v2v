@@ -158,13 +158,13 @@ private:
     int numOfReflect;// 反射次数
 	double delayTime;// 传播时延
     vector<Reflection> reflections;// 反射对象向量
-	Direction h;// 反射波平行于反射面内的振幅分量方向
-	Direction v;// 反射波垂直于反射面内的振幅分量方向
+	Direction h;// 反射波平行于入（反）射面内的振幅分量方向
+	Direction v;// 反射波垂直于入（反）射面内的振幅分量方向
 	double initPhase[2];// 初始相位,垂直极化v，水平极化h[v,h]
-	double hAmplitude;// 反射波平行于反射面的振幅大小
-	double vAmplitude;// 反射波垂直于反射面的振幅大小
-	double vPhaseShift;// 反射波垂直于反射面的相移
-	double hPhaseShift;// 反射波平行于反射面的相移
+	double hAmplitude;// 反射波平行于入（反）射面的振幅大小
+	double vAmplitude;// 反射波垂直于入（反）射面的振幅大小
+	double hPhaseShift;// 反射波平行于入（反）射面的相移
+	double vPhaseShift;// 反射波垂直于入（反）射面的相移
 	double relativeVelocity;// 接收车(镜像)和发射车的相对速度
 	double relativeAngle;// 接收车(镜像)和发射车的相对速度方向与该路径传播方向的夹角
 	Direction relVelDirect;// 接收车(镜像)和发射车的相对速度方向
@@ -179,6 +179,7 @@ private:
 	double amplitudeFade; // 路损
 	double stormFade; // 沙尘衰减
 	double stormShift; // 沙尘相移
+	double rainFade[2]; // 垂直水平极化降水衰减（垂直水平是相对的）
 public:
 	Path(double totalLength, int numOfReflect, const vector<Reflection>& reflections):
 	  totalLength(totalLength), numOfReflect(numOfReflect), reflections(reflections) {
@@ -187,6 +188,8 @@ public:
 		this->vPhaseShift = 0;
 		this->stormFade = 1;
 		this->stormShift = 0;
+		this->rainFade[0] = 1;
+		this->rainFade[1] = 1;
 	};
 	double getVir() {
 		return this->ir[0];
@@ -596,6 +599,8 @@ public:
 
 	// 计算沙尘影响路径
 	bool calculateStormPaths(); 
+	// 计算降水影响路径
+	bool calculateRainPaths(); 
 
     // 构建单条完整反射传播路径()
     // @pt:发射天线点
@@ -637,6 +642,7 @@ public:
 
 	// 显示路径
 	void displayPath();
+	void displayPathRainFade(); //显示降雨对于每条路径上两种极化的衰落
 
 	// 显示路径的水平垂直极化方向的脉冲响应
 	void displayPathIR();

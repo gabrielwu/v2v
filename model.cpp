@@ -141,7 +141,24 @@ void Path::stormEffect(Storm& storm) {
 	this->hAmplitude *= this->stormFade;
 }
 void Path::rainEffect(Rain& rain) {
-
+    vector<Reflection>::iterator iter = this->reflections.begin();
+	Direction n(0,0,1);
+	for (; iter < this->reflections.end(); iter++) {
+        double ele = asin(iter->direction * n); 
+		double v_cos = (iter->direction ^ n).getUnitDirection() * iter->v;
+		v_cos = v_cos > 1 ? 1 : v_cos;
+		double v_tilt = acos(v_cos);
+		double h_cos = (iter->direction ^ n).getUnitDirection() * iter->h;
+		h_cos = h_cos > 1 ? 1 : h_cos;
+		double h_tilt = acos(h_cos);
+		rain.resetAnglesFadeRate(ele, v_tilt);
+		this->rainFade[0] *= rain.fadePercent(iter->length);
+		rain.resetAnglesFadeRate(ele, h_tilt);
+		this->rainFade[1] *= rain.fadePercent(iter->length);
+	}
+	this->amplitudeReceive[0] *= this->rainFade[0];
+	this->amplitudeReceive[1] *= this->rainFade[1];
+//	cout<<this->rainFade[0]<<","<<this->rainFade[1]<<endl;
 }
 
 int Model::isLOSExist() {
@@ -249,11 +266,10 @@ bool Model::getReflectPath(const Point& pt, const Point& pr, const vector<Surfac
 		Direction v2 = r2.getV();
 		Direction h2 = r2.getH();
 
-		// 注意差别
+		// 振幅合成有错!!!!TODO:圆极化和椭圆计划有错
 		double vAmplitude = (h1 * r1.getHAmplitude() + v1 * r1.getVAmplitude()) * v2 * r2.getAmplitudeFadeV();
 		// 相移,配合计算振幅
-		double BrewsterAngle = r2.getSurface().getMaterial().getBrewsterAngle();
-		
+		double BrewsterAngle = r2.getSurface().getMaterial().getBrewsterAngle();		
 		reflections[j].setVPhaseShift(PI);
 		vPhaseShift += PI;
 		// 相移180度
@@ -261,15 +277,6 @@ bool Model::getReflectPath(const Point& pt, const Point& pr, const vector<Surfac
 			vAmplitude = -vAmplitude;
 			reflections[j].setV(-v2);
 		}
-		/*
-		if (vAmplitude < 0) {
-			//reflections[i].setV(-v2);
-			vAmplitude = -vAmplitude;
-			v2 = -v2;
-		} else {
-			reflections[j].setV(-v2);
-		}
-		*/
 		h2 = rd2 ^ v2;
 		h2 = h2.getUnitDirection();
 		double hAmplitude = (h1 * r1.getHAmplitude() + v1 * r1.getVAmplitude()) * h2 * r2.getAmplitudeFadeH();
@@ -277,19 +284,6 @@ bool Model::getReflectPath(const Point& pt, const Point& pr, const vector<Surfac
 			reflections[j].setH(-h2);
 			hAmplitude = -hAmplitude;
 		}
-		/*
-		if (reflections[j].getReflectAngle() > BrewsterAngle) {
-		    reflections[j].setHPhaseShift(PI);
-			hPhaseShift += PI;
-			if (hAmplitude < 0) {
-			    reflections[i].setH(-h2);
-			    hAmplitude = -hAmplitude;
-		    }
-		} else if (hAmplitude < 0) {
-			reflections[j].setH(h2);
-			hAmplitude = -hAmplitude;
-		}
-		*/
 		reflections[j].setHAmplitude(hAmplitude);
 		reflections[j].setVAmplitude(vAmplitude);	
 	}
@@ -842,6 +836,13 @@ bool Model::calculateStormPaths() {
 	}
 	return true;
 }
+bool Model::calculateRainPaths() {
+    vector<Path>::iterator iter = this->strongestPaths.begin();
+	for (; iter < this->strongestPaths.end(); iter++) {
+	    iter->rainEffect(*(this->rain));
+	}
+	return true;
+}
 bool Model::calculateImpulseResponse(double t) {
 	vector<Path>::iterator iterPath = this->strongestPaths.begin();
 	double baseTao = iterPath->getDelayTime();
@@ -1016,199 +1017,7 @@ vector<Path> Model::getStrongestPaths() const{
 	return this->strongestPaths;
 }
 
-void Model::displayPathIR() {
-	unsigned i;
-	for(i = 0; i < this->strongestPaths.size(); i++) {	
-		cout.setf(ios::fixed);
-		cout.precision(10);
-		cout.unsetf(ios_base::fixed);
-		Path path = this->strongestPaths.at(i);
-		path.displayVir();
-		
-	}
-	cout<<endl;
-	for(i = 0; i < this->strongestPaths.size(); i++) {
-		cout.setf(ios::fixed);
-		cout.precision(10);
-		cout.unsetf(ios_base::fixed);
-		Path path = this->strongestPaths.at(i);
-		path.displayHir();
-		
-	}
-	cout<<endl;
-}
 
-void Model::displayPathVIR() {
-	for(unsigned i = 0; i < this->strongestPaths.size(); i++) {	
-		cout.setf(ios::fixed);
-		cout.precision(10);
-		cout.unsetf(ios_base::fixed);
-		Path path = this->strongestPaths.at(i);
-		path.displayVir();
-	}
-	cout<<endl;
-}
-void Model::displayPathHIR() {
-	for(unsigned i = 0; i < this->strongestPaths.size(); i++) {	
-		cout.setf(ios::fixed);
-		cout.precision(10);
-		cout.unsetf(ios_base::fixed);
-		Path path = this->strongestPaths.at(i);
-		path.displayHir();
-		
-	}
-	cout<<endl;
-}
-
-void Model::displaySurfaceScatterPathVIR() {
-	for(unsigned i = 0; i < this->surfaceScatterPaths.size(); i++) {	
-		cout.setf(ios::fixed);
-		cout.precision(10);
-		cout.unsetf(ios_base::fixed);
-		Path path = this->surfaceScatterPaths.at(i);
-		path.displayVir();
-	}
-	cout<<endl;
-}
-void Model::displaySurfaceScatterPathHIR() {
-	for(unsigned i = 0; i < this->surfaceScatterPaths.size(); i++) {	
-		cout.setf(ios::fixed);
-		cout.precision(10);
-		cout.unsetf(ios_base::fixed);
-		Path path = this->surfaceScatterPaths.at(i);
-		path.displayHir();
-		
-	}
-	cout<<endl;
-}
-void Model::displayTreeScatterPathVIR() {
-	cout.setf(ios::fixed);
-	cout.precision(10);
-	cout.unsetf(ios_base::fixed);
-	for(unsigned i = 0; i < this->treeScatterPaths.size(); i++) {	
-		TreeScatterPath path = this->treeScatterPaths.at(i);
-		path.displayVir();
-	}
-	cout<<endl;
-}
-void Model::displayTreeScatterPathHIR() {
-	for(unsigned i = 0; i < this->treeScatterPaths.size(); i++) {	
-		cout.setf(ios::fixed);
-		cout.precision(10);
-		cout.unsetf(ios_base::fixed);
-		TreeScatterPath path = this->treeScatterPaths.at(i);
-		path.displayHir();		
-	}
-	cout<<endl;
-}
-void Model::displayTreeScatterPathsAmplitude() {
-    cout<<"V:\t";
-	vector<TreeScatterPath>::iterator iter = this->treeScatterPaths.begin();
-	for (; iter < this->treeScatterPaths.end(); iter++) {
-		iter->displayAmplitudeV();
-	}
-	cout<<endl;
-	cout<<"H:\t";
-	iter = this->treeScatterPaths.begin();
-	for (; iter < this->treeScatterPaths.end(); iter++) {
-		iter->displayAmplitudeH();
-	}
-	cout<<endl;
-}
-void Model::displayDiffractPathVIR() {
-	vector<DiffractPath>::iterator iterDiffractPaths = this->diffractPaths.begin();
-	for (; iterDiffractPaths < this->diffractPaths.end(); iterDiffractPaths++) {
-		cout.setf(ios::fixed);
-		cout.precision(10);
-		cout.unsetf(ios_base::fixed);
-		iterDiffractPaths->displayVir();
-	}
-	cout<<endl;
-}
-void Model::displayDiffractPathHIR() {
-	vector<DiffractPath>::iterator iterDiffractPaths = this->diffractPaths.begin();
-	for (; iterDiffractPaths < this->diffractPaths.end(); iterDiffractPaths++) {
-		cout.setf(ios::fixed);
-		cout.precision(10);
-		cout.unsetf(ios_base::fixed);
-		iterDiffractPaths->displayHir();
-	}
-	cout<<endl;
-}
-void Model::displayMixPathVIR() {
-	vector<MixPath>::iterator iterMixPath = this->mixPaths.begin();
-	for (; iterMixPath < this->mixPaths.end(); iterMixPath++) {
-		cout.setf(ios::fixed);
-		cout.precision(10);
-		cout.unsetf(ios_base::fixed);
-		iterMixPath->displayVir();
-	}
-	cout<<endl;
-}
-void Model::displayMixPathHIR() {
-	vector<MixPath>::iterator iterMixPath = this->mixPaths.begin();
-	for (; iterMixPath < this->mixPaths.end(); iterMixPath++) {
-		cout.setf(ios::fixed);
-		cout.precision(10);
-		cout.unsetf(ios_base::fixed);
-		iterMixPath->displayHir();
-	}
-	cout<<endl;
-}
-void Model::displayPath() {
-	cout<<"num of paths:"<<this->strongestPaths.size()<<endl;
-	for(unsigned i = 0; i < this->strongestPaths.size(); i++) {
-		Path path = this->strongestPaths.at(i);
-		cout<<i+1<<"th path:"<<endl;
-		cout.setf(ios::fixed);
-		cout.precision(10);
-		
-	    cout<<"  total length:"<<this->strongestPaths.at(i).getTotalLength()<<endl;
-		cout<<"  delay time:"<<this->strongestPaths.at(i).getDelayTime()<<endl;
-		cout<<"  frequency:"<<path.getFrequency()<<endl;
-		cout<<"  frequency shift:"<<path.getFDopplerShift()<<endl;
-		cout<<"  wavelength:"<<path.getWaveLength()<<endl;
-		
-		cout.unsetf(ios_base::fixed);
-
-		Direction tDirection = path.getReflections().begin()->getDirection();
-		Direction rDirection = path.getReflections().at(path.getNumOfReflect()).getDirection();
-		cout<<"  transmit direction:("<<tDirection.i<<","<<tDirection.j<<","<<tDirection.k<<")"<<endl;
-		cout<<"  receive  direction:("<<rDirection.i<<","<<rDirection.j<<","<<rDirection.k<<")"<<endl;
-		cout<<"  h:("<<path.getH().i<<","<<path.getH().j<<","<<path.getH().k<<")"<<path.getHAmplitude()<<endl;
-		cout<<"  v:("<<path.getV().i<<","<<path.getV().j<<","<<path.getV().k<<")"<<path.getVAmplitude()<<endl;
-		cout<<"  h shift:"<<path.getHPhaseShift()<<endl;
-		cout<<"  v shift:"<<path.getVPhaseShift()<<endl;
-
-		path.displayIR();
-
-		cout<<"  num of reflect :"<<this->strongestPaths.at(i).getNumOfReflect()<<endl;
-		cout<<"  reflections:"<<"num:"<<this->strongestPaths.at(i).getReflections().size()<<endl;
-		
-		for(unsigned j = 0; j <= this->strongestPaths.at(i).getReflections().size()-1 ; j++) {
-			cout<<"   "<<(j + 1)<<"th reflection:"<<endl;
-			Reflection r = this->strongestPaths.at(i).getReflections().at(j);
-		    Direction d = r.getDirection();
-			Point p = r.getReflectPoint();
-			Surface s = r.getSurface();
-			Direction nVector = s.getNVector();
-			double length = r.getLength();
-			cout<<"    direction: ("<<d.i<<","<<d.j<<","<<d.k<<")"<<endl;
-			cout<<"    reflect point:("<<p.x<<","<<p.y<<","<<p.z<<")"<<endl;
-
-			if (j != 0) {
-				cout<<"    n:("<<nVector.i<<","<<nVector.j<<","<<nVector.k<<")"<<endl;
-			}
-			cout<<"    h:("<<r.getH().i<<","<<r.getH().j<<","<<r.getH().k<<")"<<r.getHAmplitude()<<endl;
-			cout<<"    v:("<<r.getV().i<<","<<r.getV().j<<","<<r.getV().k<<")"<<r.getVAmplitude()<<endl;
-			cout<<"    h fade:"<<r.getAmplitudeFadeH()<<endl;
-			cout<<"    v fade:"<<r.getAmplitudeFadeV()<<endl;
-			cout<<"    reflect angle:"<<r.getReflectAngle()<<endl;
-			cout<<"    length:"<<length<<endl;
-		}
-		
-	}
-}
 double Reflection::getLength() const {
 	return this->length;
 };

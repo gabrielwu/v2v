@@ -26,11 +26,11 @@ bool nextModel() {
 	}
 }
 int main(int argc, char *argv[] ) { 
-    while (nextModel()) {
+	while (nextModel()) {
 		RandomModel randomModel;
 		randomModel.inputConfig();
 		Model model = randomModel.createModel();
-
+      
 		cout<<"输出文件路径名:";
 		string outPutFilepath;
 		cin>>outPutFilepath;
@@ -43,10 +43,11 @@ int main(int argc, char *argv[] ) {
 		cout.rdbuf(fileBuf);
     
 		randomModel.outputConfig();
+		model.displayWeather();
 
 		model.setSampleInfo(6, 0.01);
 
-		model.displayModelExcel();
+		//model.displayModelExcel();
 
 		model.calculateDiffractPaths();
 		model.calculateStrongestPaths();
@@ -64,7 +65,8 @@ int main(int argc, char *argv[] ) {
         */
 		model.displaySampleInfo();
 		model.displayPathsSampleIR();
-		model.calculateStormPaths();
+		model.calculateRainPaths();
+		model.displayPathRainFade();
 		model.displayPathsSampleIR();
 
 		of.flush();

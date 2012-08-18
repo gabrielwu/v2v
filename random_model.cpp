@@ -252,9 +252,10 @@ Surface RandomModel::surfaceProduce(const Point& p0, double length, vector<Mater
 	return s;
 }
 void RandomModel::WeatherProduce() {
-	this->storm = new Storm(F/(1e9), (1.63e5), 20, 0.01, -9.718, 0.405);
-	this->storm->init();
-	this->rain = new Rain(F/(1e9), 1);
+	//this->storm = new Storm(F/(1e9), (1.63e5), 20, 0.01, -9.718, 0.405);
+	//this->storm->init();
+	this->storm = NULL;
+	this->rain = new Rain(F/(1e9), this->rainIntensity);
 	this->rain->init();
 }
 void RandomModel::surfacesAndEdges(double margin[2], 
