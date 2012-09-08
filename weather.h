@@ -63,3 +63,33 @@ public:
 	void resetAnglesFadeRate(double a_ele, double a_tilt);
 	void display();
 };
+class RainDrop {
+private:
+	Point p;
+	double r; // °ë¾¶£¬mm
+	Direction d;
+	double v;
+public:
+	RainDrop(
+		Point p = Point(0,0,0), 
+		r = 1,
+		Direction d = Direction(0,0,-1), 
+		double v = 10):p(p),r(r),d(d),v(v){};
+};
+class Rain2Config {
+private:
+	double rRange[2]; // ÓêµÎ°ë¾¶·¶Î§
+	double length; 
+	double width;
+	double higth;
+public:
+	Rain2Config(double r[2], double l, double w, double h):rRange(r),length(l),width(w),high(h){};
+};
+class Rain2 {
+private:
+	Rain2Config config;
+	list<RainDrop> rainDrops;
+public:
+	Rain2(Rain2Config c):config(c){};
+	void generateRainDrops();
+};

@@ -73,3 +73,9 @@ void Rain::display() {
 	cout<<"降雨天气参数"<<endl;
     cout<<"降雨量（mm/h）\t"<<this->r<<endl;
 }
+/*
+场景中
+*/
+void Rain2::generateRainDrops() {
+
+}
