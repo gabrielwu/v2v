@@ -12,7 +12,7 @@ ComplexNumber ComplexNumber::operator -(ComplexNumber& c) {
     double re = this->re - c.re;
 	double im = this->im - c.im;
 	return ComplexNumber(re, im);
-}	//////
+}	
 ComplexNumber ComplexNumber::operator -() {
     double re = -this->re;
 	double im = -this->im;
