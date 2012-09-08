@@ -73,6 +73,8 @@ bool RandomModel::consoleInput() {
 			cin>>vRange[0]>>vRange[1];
 			cout<<"发射车和接收车方向：1、同向（正）；2、同向（负）；3、相向（发射车正向）；4、相向（接收车正向）；5、随机"<<endl;
 			cin>>dFlag;
+			cout<<"降雨强度：";
+			cin>>rainIntensity;
 			break;
 		case 2: // 郊外道路
 			cout<<"场景长度范围：";

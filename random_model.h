@@ -17,6 +17,10 @@
 #define DIFFRACTION_H 
 #include "scattering.h"
 #endif
+#ifndef WEATHER_H 
+#define WEATHER_H 
+#include "weather.h"
+#endif
 using namespace std;
 
 const double ANTENNA_HEIGHT = 1.5;
@@ -52,6 +56,8 @@ private:
 	double length;
 	double width;
 	double margin;
+	// 天气参数
+	double rainIntensity; // 降雨强度
 	
 	vector<Tree> trees; // 树木
 	vector<Material> materials; // 材料向量
@@ -59,6 +65,8 @@ private:
     vector<Edge> edges; // 刃形向量
 	vector<Antenna> tAntennas; // 发射天线阵
 	vector<Antenna> rAntennas; // 接收天线阵
+	Storm* storm;
+	Rain* rain;
 public:
     RandomModel(){};
 	RandomModel(int scenarioType):scenarioType(scenarioType){
@@ -128,6 +136,8 @@ public:
 				  double bInterval[2]);
 	// 生成天线，当前为固定值
     void antennasProduce();
+	// 生成天气
+    void WeatherProduce();
 	// 随机正负
 	double plusOrMinus();
 	// 随机数

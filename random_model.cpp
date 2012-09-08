@@ -56,8 +56,10 @@ Model RandomModel::produce(double length[2],
 	this->surfacesAndEdges(margin, bH, bL, bInterval);
 	this->antennasProduce();
 	this->treesProduce();
+	this->WeatherProduce();
 	Model model(this->tx, this->rx, this->surfaces, this->edges, this->tAntennas, this->rAntennas);
 	model.setTrees(this->trees);
+	model.setWeather(this->storm, this->rain);
 	return model;
 }
 Model RandomModel::urbanCanyonModel() {
@@ -68,8 +70,10 @@ Model RandomModel::urbanCanyonModel() {
 	this->surfacesAndEdges(marginRange, bHRange, bLRange, bIntervalRange);
 	this->antennasProduce();
 	this->treesProduce();
+	this->WeatherProduce();
 	Model model(this->tx, this->rx, this->surfaces, this->edges, this->tAntennas, this->rAntennas);
 	model.setTrees(this->trees);
+	model.setWeather(this->storm, this->rain);
 	return model;
 }
 Model RandomModel::suburbanStreetModel() {
@@ -80,8 +84,10 @@ Model RandomModel::suburbanStreetModel() {
 	this->surfacesAndEdges(marginRange, bHRange, bLRange, bIntervalRange);
 	this->antennasProduce();
 	this->treesProduce();
+	this->WeatherProduce();
 	Model model(this->tx, this->rx, this->surfaces, this->edges, this->tAntennas, this->rAntennas);
 	model.setTrees(this->trees);
+	model.setWeather(this->storm, this->rain);
 	return model;
 }
 Model RandomModel::expresswayModel() {
@@ -90,8 +96,10 @@ Model RandomModel::expresswayModel() {
 	this->vehicleProduce(vRange, dFlag);
 	this->antennasProduce();
 	this->treesProduce();
+	this->WeatherProduce();
 	Model model(this->tx, this->rx, this->surfaces, this->edges, this->tAntennas, this->rAntennas);
 	model.setTrees(this->trees);
+	model.setWeather(this->storm, this->rain);
 	return model;
 }
 void RandomModel::roadProduce(double length[2], double width[2], double margin[2]) {
@@ -243,6 +251,13 @@ Surface RandomModel::surfaceProduce(const Point& p0, double length, vector<Mater
 	s.init();
 	return s;
 }
+void RandomModel::WeatherProduce() {
+	//this->storm = new Storm(F/(1e9), (1.63e5), 20, 0.01, -9.718, 0.405);
+	//this->storm->init();
+	this->storm = NULL;
+	this->rain = new Rain(F/(1e9), this->rainIntensity);
+	this->rain->init();
+}
 void RandomModel::surfacesAndEdges(double margin[2], 
 								   double bH[2],
 								   double bL[2], 
@@ -274,7 +289,7 @@ void RandomModel::surfacesAndEdges(double margin[2],
 		this->edges.push_back(e1);
 		totalLength = y0 + length ;
 	}
-	// 道路右侧情况，x<0
+	// 道路左侧情况，x<0
 	totalLength = -bInterval[1];
 	while (totalLength <= this->length) {
 	    double x0 = -((width / 2) + this->randomNum(margin));

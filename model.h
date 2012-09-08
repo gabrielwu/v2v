@@ -17,6 +17,10 @@
 #define SCATTERING_H 
 #include "scattering.h"
 #endif 
+#ifndef WEATHER_H 
+#define WEATHER_H 
+#include "weather.h"
+#endif 
 using namespace std;
 
 // 汽车类
@@ -154,13 +158,13 @@ private:
     int numOfReflect;// 反射次数
 	double delayTime;// 传播时延
     vector<Reflection> reflections;// 反射对象向量
-	Direction h;// 反射波平行于反射面内的振幅分量方向
-	Direction v;// 反射波垂直于反射面内的振幅分量方向
+	Direction h;// 反射波平行于入（反）射面内的振幅分量方向
+	Direction v;// 反射波垂直于入（反）射面内的振幅分量方向
 	double initPhase[2];// 初始相位,垂直极化v，水平极化h[v,h]
-	double hAmplitude;// 反射波平行于反射面的振幅大小
-	double vAmplitude;// 反射波垂直于反射面的振幅大小
-	double vPhaseShift;// 反射波垂直于反射面的相移
-	double hPhaseShift;// 反射波平行于反射面的相移
+	double hAmplitude;// 反射波平行于入（反）射面的振幅大小
+	double vAmplitude;// 反射波垂直于入（反）射面的振幅大小
+	double hPhaseShift;// 反射波平行于入（反）射面的相移
+	double vPhaseShift;// 反射波垂直于入（反）射面的相移
 	double relativeVelocity;// 接收车(镜像)和发射车的相对速度
 	double relativeAngle;// 接收车(镜像)和发射车的相对速度方向与该路径传播方向的夹角
 	Direction relVelDirect;// 接收车(镜像)和发射车的相对速度方向
@@ -173,12 +177,19 @@ private:
 	double amplitudeReceive[2];// 接收设备收到的振幅,垂直极化,水平极化	
 	double ir[2];// 冲击响应,v垂直极化，h水平极化
 	double amplitudeFade; // 路损
+	double stormFade; // 沙尘衰减
+	double stormShift; // 沙尘相移
+	double rainFade[2]; // 垂直水平极化降水衰减（垂直水平是相对的）
 public:
 	Path(double totalLength, int numOfReflect, const vector<Reflection>& reflections):
 	  totalLength(totalLength), numOfReflect(numOfReflect), reflections(reflections) {
 	    //this->delayTime = totalLength / C;
 		this->hPhaseShift = 0;
 		this->vPhaseShift = 0;
+		this->stormFade = 1;
+		this->stormShift = 0;
+		this->rainFade[0] = 1;
+		this->rainFade[1] = 1;
 	};
 	double getVir() {
 		return this->ir[0];
@@ -297,6 +308,7 @@ public:
 		this->fDopplerShift = this->frequency - F;
 	};
 	void init();
+	// TODU:接受相位值
 	void calculatePhaseReceive() {
 		double hPhase = 2 * PI / this->waveLength * (- this->totalLength - this->hPhaseShift / (2 * PI) * this->waveLength);
 		double vPhase = 2 * PI / this->waveLength * (- this->totalLength - this->vPhaseShift / (2 * PI) * this->waveLength);
@@ -336,6 +348,8 @@ public:
 	double getDelayTime() {
 		return this->delayTime;
 	};
+	void stormEffect(Storm& storm); // 沙尘影响
+	void rainEffect(Rain& rain); // 降雨影响
 };
 
 class DiffractPath {
@@ -462,7 +476,7 @@ public:
 };
 
 //总体模型类
-class Model{
+class Model {
 	friend class MergePathModel;
 private:	
     Vehicle transmitter; // 发射车Tx
@@ -479,6 +493,8 @@ private:
     vector<Surface> surfaces; // 反射表面
     vector<Edge> edges; // 刃形向量
 	vector<Tree> trees; // 树木
+    Storm* storm;
+	Rain* rain;
 	int sampleCount; // 采样次数
 	double sampleInterval; // 采样间隔
 	// 计算LOS
@@ -503,40 +519,48 @@ public:
 		  const Vehicle& receiver, 
 		  const vector<Surface>& surfaces, 
 		  const vector<Antenna>& tAntennas,
-		  const vector<Antenna>& rAntennas):
-	  transmitter(transmitter), 
-	  receiver(receiver), 
-	  surfaces(surfaces), 
-	  tAntennas(tAntennas),
-	  rAntennas(rAntennas){};
+		  const vector<Antenna>& rAntennas,
+		  Storm* storm = NULL,
+		  Rain* rain = NULL):
+	  transmitter(transmitter), receiver(receiver), surfaces(surfaces), tAntennas(tAntennas),rAntennas(rAntennas),storm(storm), rain(rain){};
 	Model(const Vehicle& transmitter, 
 		  const Vehicle& receiver, 
 		  const vector<Surface>& surfaces, 
 		  const vector<Edge>& edges,
 		  const vector<Antenna>& tAntennas,
-		  const vector<Antenna>& rAntennas):
+		  const vector<Antenna>& rAntennas,
+		  Storm* storm = NULL,
+		  Rain* rain = NULL):
 	  transmitter(transmitter), 
 	  receiver(receiver), 
 	  surfaces(surfaces),
 	  edges(edges),
 	  tAntennas(tAntennas),
-	  rAntennas(rAntennas){};
-	Model(const Vehicle& transmitter, 
-		  const Vehicle& receiver, 
-		  const vector<Surface>& surfaces):
-	  transmitter(transmitter), 
-	  receiver(receiver), 
-	  surfaces(surfaces){};
+	  rAntennas(rAntennas),storm(storm), rain(rain){};
 	Model(const Vehicle& transmitter, 
 		  const Vehicle& receiver, 
 		  const vector<Surface>& surfaces,
-		  const vector<Edge>& edges):
+		  Storm* storm = NULL,
+		  Rain* rain = NULL):
+	  transmitter(transmitter), 
+	  receiver(receiver), 
+	  surfaces(surfaces),storm(storm), rain(rain){};
+	Model(const Vehicle& transmitter, 
+		  const Vehicle& receiver, 
+		  const vector<Surface>& surfaces,
+		  const vector<Edge>& edges,
+		  Storm* storm = NULL,
+		  Rain* rain = NULL):
 	  transmitter(transmitter), 
 	  receiver(receiver), 
 	  surfaces(surfaces),
-	  edges(edges){};
+	  edges(edges),storm(storm), rain(rain){};
 	void setTrees(const vector<Tree>& trees) {
 		this->trees = trees;
+	};
+	void setWeather(Storm* storm, Rain* rain) {
+		this->storm = storm;
+		this->rain = rain;
 	};
 	// 设置采样信息
 	void setSampleInfo(int sampleCount, double sampleInterval) {
@@ -572,6 +596,11 @@ public:
 
 	// 计算混合路径
 	bool calculateMixPaths();
+
+	// 计算沙尘影响路径
+	bool calculateStormPaths(); 
+	// 计算降水影响路径
+	bool calculateRainPaths(); 
 
     // 构建单条完整反射传播路径()
     // @pt:发射天线点
@@ -613,6 +642,7 @@ public:
 
 	// 显示路径
 	void displayPath();
+	void displayPathRainFade(); //显示降雨对于每条路径上两种极化的衰落
 
 	// 显示路径的水平垂直极化方向的脉冲响应
 	void displayPathIR();
@@ -655,6 +685,7 @@ public:
 	void displayTreeScatterPathsSampleIR();
 	
 	void displayResult();
+	void displaySampleInfo(); // 显示采样信息，次数和间隔
 	// 显示采样的冲击响应
 	void displaySampleIR();
 	// 显示信道脉冲
@@ -671,6 +702,9 @@ public:
 
 	// 显示树木，excel格式
 	void displayTreesExcel();
+
+	// 显示天气情况
+	void displayWeather();
 	
 	// 显示各路径总长
 	void displayPathsLength();

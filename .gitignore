@@ -12,8 +12,7 @@
 *.opt
 *.dsp
 *.dsw
-<<<<<<< HEAD
-
-=======
-*/*.plg
->>>>>>> 736f21fff1a0fa5d671a6ce2d76c3797e97687e1
+*.bsc
+*.txt
+*.xls
+*.xlsx
