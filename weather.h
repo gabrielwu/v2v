@@ -1,7 +1,9 @@
+#include <list>
 #ifndef BASE_H 
 #define BASE_H 
 #include "base.h"
 #endif 
+
 
 using namespace std;
 
@@ -70,26 +72,46 @@ private:
 	Direction d;
 	double v;
 public:
-	RainDrop(
-		Point p = Point(0,0,0), 
-		r = 1,
-		Direction d = Direction(0,0,-1), 
-		double v = 10):p(p),r(r),d(d),v(v){};
+	RainDrop(Point p = Point(0,0,0), double r = 1,Direction d = Direction(0,0,-1), double v = 10):p(p),r(r),d(d),v(v){};
 };
 class Rain2Config {
+	friend class Rain2;
 private:
 	double rRange[2]; // 雨滴半径范围
-	double length; 
+	double vRange[2]; // 雨滴速度范围
+	Direction dWind; // 风向
+	double vWind; // 风速
+	double length; // 雨层长度，下同
 	double width;
-	double higth;
+	double height;
+	int density; // 雨层密度，1立方米内雨滴数
 public:
-	Rain2Config(double r[2], double l, double w, double h):rRange(r),length(l),width(w),high(h){};
+	Rain2Config(double r[2],
+		double v[2],
+		Direction d,
+		double vW,
+		double l, 
+		double w, 
+		double h,
+		int density){
+	    this->rRange[0] = r[0];
+	    this->rRange[1] = r[1];
+	    this->vRange[0] = v[0];
+	    this->vRange[1] = v[1];
+		this->dWind = d;
+		this->vWind = vW;
+		this->length = l;
+		this->width = w;
+		this->height = h;
+		this->density = density;
+	};
 };
 class Rain2 {
 private:
-	Rain2Config config;
+	Rain2Config config;;
 	list<RainDrop> rainDrops;
+	long amount; // 雨滴总数
 public:
 	Rain2(Rain2Config c):config(c){};
-	void generateRainDrops();
+	void initRainDrops();
 };

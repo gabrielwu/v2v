@@ -1,3 +1,4 @@
+#include <time.h>
 #include "weather.h"
 
 void Storm::init() {
@@ -74,8 +75,26 @@ void Rain::display() {
     cout<<"降雨量（mm/h）\t"<<this->r<<endl;
 }
 /*
-场景中
+生成初始场景中雨层的雨滴
+将场景（长方体）划分成单位立方体，每个立方体只能容纳一个雨滴
+根据雨滴分布（雨滴密度）计算雨层中一共要布设的雨滴总数m
+将立方体标号，立方体总数n=a*b*c
+从1-n中随机选出m个数，换算成雨滴位置
+根据配置生成各雨滴
 */
-void Rain2::generateRainDrops() {
-
+void Rain2::initRainDrops() {
+	this->amount = this->config.length * this->config.width * this->config.height * this->config.density;
+	long m = this->amount;
+    double unitL = this->config.rRange[1] / 1000; // 立方体长度
+	long a = (long)this->config.length / unitL; 
+	long b = (long)this->config.width / unitL; 
+	long c = (long)this->config.height / unitL; 
+	long n = a * b * c;
+	srand(time(NULL));
+	for (long i = 0L; i < n; i++) {
+		//此处rand()%(N - 1)出现每一个小于(N - i)的数的概率是一样的
+		if ((rand()%(n - i)) < m) {  //被取到，m值减 1 ，输出结果 i 
+			m--;
+		}
+	}
 }
