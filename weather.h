@@ -71,6 +71,7 @@ private:
 	double r; // 半径，mm
 	Direction d;
 	double v;
+	double sCrossSection; // 散射截面积
 public:
 	RainDrop(Point p = Point(0,0,0), double r = 1,Direction d = Direction(0,0,-1), double v = 10):p(p),r(r),d(d),v(v){};
 };
@@ -110,8 +111,14 @@ class Rain2 {
 private:
 	Rain2Config config;;
 	list<RainDrop> rainDrops;
+
 	long amount; // 雨滴总数
+	double unitL; // 立方体边长
+	long a;
+	long b;
+	long c;
 public:
 	Rain2(Rain2Config c):config(c){};
 	void initRainDrops();
+	void addOneRainDrop(long i);
 };

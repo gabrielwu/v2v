@@ -3,6 +3,22 @@
 double dBtoPercent(double dBvalue) {
     return pow(10, dBvalue / 20);
 };
+double randomDouble(double range[2]) {
+	double min = range[0];
+    double max = range[1];
+	if (range[0] > range[1]) {
+	    max = range[0];
+		min = range[1];
+	}
+	int rangeInt = (int)(max - min);
+	double num;
+	if (rangeInt == 0) {
+	    num = min;
+	} else {
+	    num = min + rand()%rangeInt;
+	}
+	return num;
+}
 ComplexNumber ComplexNumber::operator +(ComplexNumber& c) {
     double re = this->re + c.re;
 	double im = this->im + c.im;

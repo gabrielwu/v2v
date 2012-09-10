@@ -81,20 +81,37 @@ void Rain::display() {
 将立方体标号，立方体总数n=a*b*c
 从1-n中随机选出m个数，换算成雨滴位置
 根据配置生成各雨滴
+注意1：坐标原点是发射天线
 */
 void Rain2::initRainDrops() {
 	this->amount = this->config.length * this->config.width * this->config.height * this->config.density;
 	long m = this->amount;
-    double unitL = this->config.rRange[1] / 1000; // 立方体长度
-	long a = (long)this->config.length / unitL; 
-	long b = (long)this->config.width / unitL; 
-	long c = (long)this->config.height / unitL; 
+    this->unitL = this->config.rRange[1] / 1000; // 立方体长度
+	this->a = (long)this->config.width / unitL; 
+	this->b = (long)this->config.length / unitL; 
+	this->c = (long)this->config.height / unitL; 
 	long n = a * b * c;
 	srand(time(NULL));
 	for (long i = 0L; i < n; i++) {
 		//此处rand()%(N - 1)出现每一个小于(N - i)的数的概率是一样的
-		if ((rand()%(n - i)) < m) {  //被取到，m值减 1 ，输出结果 i 
+		if ((rand()%(n - i)) < m) {  //被取到，m值减 1 ，雨滴标号i 
 			m--;
+			this->addOneRainDrop(i);
 		}
 	}
+}
+//注意1：坐标原点是发射天线
+void Rain2::addOneRainDrop(long i) {
+	long iab = i % (a * b);
+	long iaba = iab % a;
+	double z = (i / (a * b)) * unitL + 0.5 * unitL;
+	double y = (iab / a) * unitL + 0.5 * unitL;	
+	double x = iaba * unitL + 0.5 * unitL - 0.5 * this->config.width; // 注意1
+	Point p(x, y, z);
+	double r = randomDouble(this->config.rRange);
+	Direction vd = Direction(0, 0, -1) * randomDouble(this->config.vRange) + this->config.dWind * this->config.vWind;
+	Direction d = vd.getUnitDirection();
+	double v = vd.getModule();
+	RainDrop drop(p, r, d, v);
+	this->rainDrops.push_back(drop);
 }
