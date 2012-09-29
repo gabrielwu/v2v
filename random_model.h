@@ -67,6 +67,9 @@ private:
 	vector<Antenna> rAntennas; // 接收天线阵
 	Storm* storm;
 	Rain* rain;
+	// 降雨2配置参数
+	Rain2Config* rain2Config;
+	Rain2* rain2;
 public:
     RandomModel(){};
 	RandomModel(int scenarioType):scenarioType(scenarioType){

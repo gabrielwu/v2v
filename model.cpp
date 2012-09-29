@@ -843,6 +843,82 @@ bool Model::calculateRainPaths() {
 	}
 	return true;
 }
+bool Model::calculateRain2ScatterPaths(double t) {
+	int i = 0;
+	int j = 0;
+	int k = 0;			
+	this->rain2->traceRainDrops(t);
+	this->rain2->mergeRainDrops();
+	list<MergedRainDrop>::iterator iter;
+    switch (NUM_OF_SCATTER) {
+	    case 1: 
+			for (iter = this->rain2->mergedRainDrops.begin(); iter != this->rain2->mergedRainDrops.end(); iter++) {	
+	            list<MergedRainDrop> mrd;
+				mrd.push_back(*iter);
+				this->calculateRain2ScatterPath(mrd);
+			}
+			break;
+    	case 2:
+			break;
+	    case 3:
+			break;
+		default:
+			break;
+	}
+	
+	return true;
+};
+bool Model::calculateRain2ScatterPath(list<MergedRainDrop> mrd) {
+	list<MergedRainDrop>::iterator iter = mrd.begin();
+	list<Rain2Scatter> rs;
+	list<Point> points;
+	
+	points.push_back(this->transmitter.p);
+	for (; iter != mrd.end(); iter++) {
+		points.push_back(iter->getPosition());
+	}
+	points.push_back(this->receiver.p);
+	list<Point>::iterator iterPoints = points.begin();
+
+	iter = mrd.begin();
+	for (; iter != mrd.end(); iter++) {
+		Rain2Scatter scatter(*iter);
+		Point p0 = *iterPoints;
+		iterPoints++;
+		Point p1 = *iterPoints;
+		iterPoints++;
+		Point p2 = *iterPoints;
+		scatter.points[0] = p0;
+		scatter.points[1] = p1;
+		scatter.points[2] = p2;
+		scatter.init();
+		rs.push_back(scatter);
+		iterPoints--;
+	}
+
+	list<Rain2Scatter>::iterator iterScatter = rs.begin();
+
+	// TODO::
+	Antenna a = this->tAntennas[0];
+	Direction aAmplitude = a.getAmplitudeDirection() * a.getAmplitude();
+	Direction tempD = iterScatter->direction[0] * (aAmplitude * iterScatter->direction[0]);
+	Direction initPolarA = aAmplitude - tempD;
+	iterScatter->calculatePolarAmplitude(initPolarA, Direction(0, 0, 0));
+	Rain2Scatter pre = *iterScatter;
+	iterScatter++;
+	for (; iterScatter != rs.end(); iterScatter++) {
+	    iterScatter->calculatePolarAmplitude(pre);
+		pre = *iterScatter;
+	}
+	Rain2ScatterPath path(rs);
+//	path.leafScatters = rs;
+
+	Direction relV = (this->transmitter.direction * this->transmitter.velocity - this->receiver.direction * this->receiver.velocity);
+	path.calculate(relV, this->rAntennas);
+//	this->insertLeafScatterPath(path);
+	this->rain2ScatterPaths.push_back(path);
+	return true;
+};
 bool Model::calculateImpulseResponse(double t) {
 	vector<Path>::iterator iterPath = this->strongestPaths.begin();
 	double baseTao = iterPath->getDelayTime();

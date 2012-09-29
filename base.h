@@ -14,7 +14,7 @@ const int NUM_OF_SCATTER = 1;
 class Surface;
 
 double dBtoPercent(double dBvalue);
-double randomDouble(double range[2]);
+double randomDouble2(double range[2]);
 class ComplexNumber {
 	friend class ComplexNumber;
 private:

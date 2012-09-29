@@ -3,7 +3,7 @@
 double dBtoPercent(double dBvalue) {
     return pow(10, dBvalue / 20);
 };
-double randomDouble(double range[2]) {
+double randomDouble2(double range[2]) {
 	double min = range[0];
     double max = range[1];
 	if (range[0] > range[1]) {

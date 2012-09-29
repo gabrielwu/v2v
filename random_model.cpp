@@ -60,6 +60,7 @@ Model RandomModel::produce(double length[2],
 	Model model(this->tx, this->rx, this->surfaces, this->edges, this->tAntennas, this->rAntennas);
 	model.setTrees(this->trees);
 	model.setWeather(this->storm, this->rain);
+	model.setRain2(this->rain2);
 	return model;
 }
 Model RandomModel::urbanCanyonModel() {
@@ -74,6 +75,7 @@ Model RandomModel::urbanCanyonModel() {
 	Model model(this->tx, this->rx, this->surfaces, this->edges, this->tAntennas, this->rAntennas);
 	model.setTrees(this->trees);
 	model.setWeather(this->storm, this->rain);
+	model.setRain2(this->rain2);
 	return model;
 }
 Model RandomModel::suburbanStreetModel() {
@@ -88,6 +90,7 @@ Model RandomModel::suburbanStreetModel() {
 	Model model(this->tx, this->rx, this->surfaces, this->edges, this->tAntennas, this->rAntennas);
 	model.setTrees(this->trees);
 	model.setWeather(this->storm, this->rain);
+	model.setRain2(this->rain2);
 	return model;
 }
 Model RandomModel::expresswayModel() {
@@ -100,6 +103,7 @@ Model RandomModel::expresswayModel() {
 	Model model(this->tx, this->rx, this->surfaces, this->edges, this->tAntennas, this->rAntennas);
 	model.setTrees(this->trees);
 	model.setWeather(this->storm, this->rain);
+	model.setRain2(this->rain2);
 	return model;
 }
 void RandomModel::roadProduce(double length[2], double width[2], double margin[2]) {
@@ -257,6 +261,9 @@ void RandomModel::WeatherProduce() {
 	this->storm = NULL;
 	this->rain = new Rain(F/(1e9), this->rainIntensity);
 	this->rain->init();
+	this->rain2Config = new Rain2Config();
+	this->rain2 = new Rain2(*rain2Config);
+	//this->rain2->initRainDrops();
 }
 void RandomModel::surfacesAndEdges(double margin[2], 
 								   double bH[2],

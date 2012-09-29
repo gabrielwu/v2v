@@ -65,9 +65,26 @@ int main(int argc, char *argv[] ) {
         */
 		model.displaySampleInfo();
 		model.displayPathsSampleIR();
+		cout<<"rain2散射能量"<<endl;
+		cout<<"t\t"<<"垂直极化\t"<<"水平极化\t"<<endl;
+		for (int t = 0; t < 6; t++) {
+			model.resetRain2();
+			model.calculateRain2ScatterPaths();
+			Rain2ScatterPathMergehModel rspmm(model.getRain2ScatterPaths());
+			rspmm.setSampleInfo(model.getSampleCount(), model.getSampleInterval());
+			rspmm.mergePath();
+			rspmm.calculateImpulseResponse(t * 0.01);
+			cout<<"t"<<(t + 1)<<"\t";
+			rspmm.displayVIR();
+			rspmm.displayHIR();
+			cout<<endl;
+		}
+		/*
+		model.displayPathsSampleIR();
 		model.calculateRainPaths();
 		model.displayPathRainFade();
 		model.displayPathsSampleIR();
+		*/
 
 		of.flush();
 		of.close();

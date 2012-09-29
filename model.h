@@ -21,6 +21,12 @@
 #define WEATHER_H 
 #include "weather.h"
 #endif 
+/*
+#ifndef RANDOM_MODEL_H 
+#define RANDOM_MODEL_H 
+#include "random_model.h"
+#endif 
+*/
 using namespace std;
 
 // 汽车类
@@ -493,8 +499,10 @@ private:
     vector<Surface> surfaces; // 反射表面
     vector<Edge> edges; // 刃形向量
 	vector<Tree> trees; // 树木
+	list<Rain2ScatterPath> rain2ScatterPaths; // 降雨2散射路径
     Storm* storm;
 	Rain* rain;
+	Rain2* rain2; // 第二种降雨模型
 	int sampleCount; // 采样次数
 	double sampleInterval; // 采样间隔
 	// 计算LOS
@@ -530,37 +538,46 @@ public:
 		  const vector<Antenna>& tAntennas,
 		  const vector<Antenna>& rAntennas,
 		  Storm* storm = NULL,
-		  Rain* rain = NULL):
+		  Rain* rain = NULL,
+		  Rain2* rain2 = NULL):
 	  transmitter(transmitter), 
 	  receiver(receiver), 
 	  surfaces(surfaces),
 	  edges(edges),
 	  tAntennas(tAntennas),
-	  rAntennas(rAntennas),storm(storm), rain(rain){};
+	  rAntennas(rAntennas),storm(storm), rain(rain), rain2(rain2){};
 	Model(const Vehicle& transmitter, 
 		  const Vehicle& receiver, 
 		  const vector<Surface>& surfaces,
 		  Storm* storm = NULL,
-		  Rain* rain = NULL):
+		  Rain* rain = NULL,
+		  Rain2* rain2 = NULL):
 	  transmitter(transmitter), 
 	  receiver(receiver), 
-	  surfaces(surfaces),storm(storm), rain(rain){};
+	  surfaces(surfaces),storm(storm), rain(rain), rain2(rain2){};
 	Model(const Vehicle& transmitter, 
 		  const Vehicle& receiver, 
 		  const vector<Surface>& surfaces,
 		  const vector<Edge>& edges,
 		  Storm* storm = NULL,
-		  Rain* rain = NULL):
+		  Rain* rain = NULL,
+		  Rain2* rain2 = NULL):
 	  transmitter(transmitter), 
 	  receiver(receiver), 
 	  surfaces(surfaces),
-	  edges(edges),storm(storm), rain(rain){};
+	  edges(edges),storm(storm), rain(rain), rain2(rain2){};
 	void setTrees(const vector<Tree>& trees) {
 		this->trees = trees;
 	};
 	void setWeather(Storm* storm, Rain* rain) {
 		this->storm = storm;
 		this->rain = rain;
+	};
+	void setRain2(Rain2* rain2) {
+	    this->rain2 = rain2;
+	};
+	void resetRain2() {
+		this->rain2->initRainDrops();
 	};
 	// 设置采样信息
 	void setSampleInfo(int sampleCount, double sampleInterval) {
@@ -593,6 +610,13 @@ public:
 	bool calculateLeafScatterPaths();
 	bool calculateLeafScatterPath(list<Leaf> l);
 	void insertLeafScatterPath(const LeafScatterPath& newPath);
+
+	// 计算rain2散射路径
+	bool calculateRain2ScatterPaths(double t = 0);
+	bool calculateRain2ScatterPath(list<MergedRainDrop> mrd);
+	list<Rain2ScatterPath> getRain2ScatterPaths() {
+	    return this->rain2ScatterPaths;
+	};
 
 	// 计算混合路径
 	bool calculateMixPaths();

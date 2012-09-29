@@ -52,6 +52,7 @@ bool RandomModel::outputConfig() {
 	}
 	cout<<"车速velocity\t"<<"("<<this->vRange[0]<<" , "<<this->vRange[1]<<")"<<endl;
 	cout<<"两车方向direction\t"<<this->dFlagInfo.c_str()<<"\t"<<endl;
+	this->rain2Config->display();
 	return true;
 }
 bool RandomModel::consoleInput() {
@@ -110,5 +111,6 @@ bool RandomModel::consoleInput() {
 			break;
 		
 	}
+    
 	return true;
 }
