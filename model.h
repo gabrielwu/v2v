@@ -186,6 +186,7 @@ private:
 	double stormFade; // 沙尘衰减
 	double stormShift; // 沙尘相移
 	double rainFade[2]; // 垂直水平极化降水衰减（垂直水平是相对的）
+	double wetRAntennaFade[2]; // 
 public:
 	Path(double totalLength, int numOfReflect, const vector<Reflection>& reflections):
 	  totalLength(totalLength), numOfReflect(numOfReflect), reflections(reflections) {
@@ -322,6 +323,10 @@ public:
 		this->setVPhaseReceive(vPhase);
 	};
 	void calculateAmplitudeReceive(const vector<Antenna>& ras);
+	void calculateWetAntennaEffect(const vector<Antenna>& ras);
+	void displayWetRAntennaFade() {
+		cout<<this->wetRAntennaFade[0]<<"\t"<<this->wetRAntennaFade[1]<<endl;
+	};
 	void displayVir() {
 		cout<<pow(this->ir[0], 2)<<"\t";
 	}
@@ -625,6 +630,8 @@ public:
 	bool calculateStormPaths(); 
 	// 计算降水影响路径
 	bool calculateRainPaths(); 
+	// 计算天线雨幕影响
+	bool calculateWetAntennaEffect();
 
     // 构建单条完整反射传播路径()
     // @pt:发射天线点
@@ -714,6 +721,7 @@ public:
 	void displaySampleIR();
 	// 显示信道脉冲
 	void displayIR();
+	void displayWetAntennaEffect();
 
 	// 显示输入模型参数
 	void displayModel();

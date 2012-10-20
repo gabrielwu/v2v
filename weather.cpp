@@ -95,10 +95,11 @@ void Rain2::initRainDrops() {
 	this->amount = this->config.length * this->config.width * this->config.height * this->config.density;
 	long m = this->amount;
     this->unitL = this->config.rRange[1] / 1000; // 立方体长度
-	this->a = (long)this->config.width / unitL; 
-	this->b = (long)this->config.length / unitL; 
-	this->c = (long)this->config.height / unitL; 
+	this->a = (long)(this->config.width / unitL); 
+	this->b = (long)(this->config.length / unitL); 
+	this->c = (long)(this->config.height / unitL); 
 	long n = a * b * c;
+//	cout<<"m"<<m<<"n"<<n;
 	srand(time(NULL));
 	for (long i = 0L; i < n; i++) {
 		//此处rand()%(N - 1)出现每一个小于(N - i)的数的概率是一样的
@@ -107,14 +108,15 @@ void Rain2::initRainDrops() {
 			this->addOneRainDrop(i);
 		}
 	}
+//	cout<<"("<<this->rainDrops.size()<<")";
 }
 //注意1：坐标原点是发射天线
 void Rain2::addOneRainDrop(long i) {
 	long iab = i % (a * b);
 	long iaba = iab % a;
-	double z = (i / (a * b)) * unitL + 0.5 * unitL;
+	double z = (i / (a * b)) * unitL + 0.5 * unitL + ANTENNA_HEIGHT - 0.5 * this->config.height;
 	// TODO:天线高度？
-	double y = (iab / a) * unitL + 0.5 * unitL; 	
+	double y = (iab / a) * unitL + 0.5 * unitL - this->config.length; 	
 	double x = iaba * unitL + 0.5 * unitL - 0.5 * this->config.width; // 注意1
 	Point p(x, y, z);
 	double r = randomDouble2(this->config.rRange);
@@ -357,13 +359,14 @@ void Rain2ScatterPathMergehModel::displayHIR() {
 void Rain2ScatterPathMergehModel::displayVIR() {
 	cout<<pow(this->ir[1], 2)<<"\t";
 }
-bool Rain2ScatterPathMergehModel::calculateImpulseResponse(double t) {
+bool Rain2ScatterPathMergehModel::calculateImpulseResponse(double t) { 
+//	cout<<this->paths.size();
 	if (this->paths.size() == 0) {
 		return false;
 	}
 	this->ir[0] = 0;
 	this->ir[1] = 0;
-	list<Rain2ScatterPath>::iterator iterPath; 
+	list<Rain2ScatterPath>::iterator iterPath;
 	for (iterPath = this->paths.begin(); iterPath != this->paths.end(); iterPath++) {
 		double tao = iterPath->delayTime;
 		double tt = t - tao; 

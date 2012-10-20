@@ -3,6 +3,9 @@
 #include "math.h"
 using namespace std;
 // base components
+const double ANTENNA_HEIGHT = 1.5;
+const double TREE_HEIGHT = 1.5;
+const double BUILDING_WIDTH = 20;
 const double C = 300000000;
 const double F = 5900000000;
 const double PI = 3.1415926;

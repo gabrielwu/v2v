@@ -139,9 +139,9 @@ public:
 	    this->vRange[1] = 9;
 		this->dWind = Direction(0,0,0);
 		this->vWind = 0;
-		this->length = 5;
-		this->width = 1;
-		this->height = 1;
+		this->length = 100;
+		this->width = 0.012;
+		this->height = 0.012;
 		this->density = 8000;
 	};
 	void display();

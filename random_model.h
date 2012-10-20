@@ -23,9 +23,6 @@
 #endif
 using namespace std;
 
-const double ANTENNA_HEIGHT = 1.5;
-const double TREE_HEIGHT = 1.5;
-const double BUILDING_WIDTH = 20;
 class RandomModel {
 private:
 	// 场景输入方式：1、控制台输入；2、xml输入；3、默认输入参数配置

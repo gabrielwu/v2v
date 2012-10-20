@@ -117,13 +117,15 @@ void RandomModel::vehicleProduce(double vRange[2], int dFlag) {
     double halfWidth = this->width / 2;
 	double widthRange[2] = {-halfWidth, halfWidth};
 	
-	double xt = this->randomNum(widthRange);
+	//double xt = this->randomNum(widthRange);
+	double xt = 0;
 	double yt = 0;
 	double zt = ANTENNA_HEIGHT;
 	Point pt(xt, yt, zt);
     Vehicle* txp = new Vehicle(pt, this->dTx, this->vTx);
 
-	double xr = this->randomNum(widthRange);
+	//double xr = this->randomNum(widthRange);
+	double xr = 0;
 	double yr = 0 + this->length;
 	double zr = ANTENNA_HEIGHT;
 	Point pr(xr, yr, zr);

@@ -3,7 +3,16 @@
 #include "model.h"
 
 using namespace std;
-
+void Model::displayWetAntennaEffect() {
+	cout<<"天线水膜影响"<<endl;
+	cout<<"路径"<<"\t"<<"垂直极化"<<"\t"<<"水平极化"<<"\t"<<endl;
+    vector<Path>::iterator iter;
+	unsigned i = 1;
+	for (iter = this->strongestPaths.begin(); iter != this->strongestPaths.end(); iter++, i++) {
+		cout<<"Path"<<i<<"\t";
+		iter->displayWetRAntennaFade();
+	}
+}
 // TODO:unsed
 void Model::displayIR() {
 }

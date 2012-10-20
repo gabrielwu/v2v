@@ -26,6 +26,8 @@ bool nextModel() {
 	}
 }
 int main(int argc, char *argv[] ) { 
+	long x = (long)(0.008/0.004);
+	cout<<x<<endl;
 	while (nextModel()) {
 		RandomModel randomModel;
 		randomModel.inputConfig();
@@ -43,7 +45,7 @@ int main(int argc, char *argv[] ) {
 		cout.rdbuf(fileBuf);
     
 		randomModel.outputConfig();
-		model.displayWeather();
+//		model.displayWeather();
 
 		model.setSampleInfo(6, 0.01);
 
@@ -65,6 +67,9 @@ int main(int argc, char *argv[] ) {
         */
 		model.displaySampleInfo();
 		model.displayPathsSampleIR();
+		model.calculateWetAntennaEffect();
+		model.displayWetAntennaEffect();
+		/*
 		cout<<"rain2散射能量"<<endl;
 		cout<<"t\t"<<"垂直极化\t"<<"水平极化\t"<<endl;
 		for (int t = 0; t < 6; t++) {
@@ -79,6 +84,7 @@ int main(int argc, char *argv[] ) {
 			rspmm.displayHIR();
 			cout<<endl;
 		}
+		*/
 		/*
 		model.displayPathsSampleIR();
 		model.calculateRainPaths();

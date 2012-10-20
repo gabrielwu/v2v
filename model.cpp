@@ -123,6 +123,22 @@ void Path::calculateAmplitudeReceive(const vector<Antenna>& ras) {
 	double hAmplitudeReceive = (h * hAmplitude + v * vAmplitude) * a.getHDirection() * this->amplitudeFade;
 	this->setAmplitudeReceive(vAmplitudeReceive, hAmplitudeReceive);
 }
+// TODO:expect MIMO, SISO now
+void Path::calculateWetAntennaEffect(const vector<Antenna>& ras) {
+	Antenna a = ras[0];
+	double nWater = (double)(4.0 / 3.0);
+	Direction da = a.getDirection();
+	Direction dp = this->reflections.back().getDirection();
+	if (da * dp == 0) {
+        this->wetRAntennaFade[0] = 2 / (nWater + 1);
+        this->wetRAntennaFade[1] = 2 / (nWater + 1);
+	} else {
+		double sinR = abs(da * dp); 
+		double cosR = sqrt(1 - sinR * sinR);
+        this->wetRAntennaFade[0] = (2 * cosR) / (cosR + sqrt(nWater * nWater - sinR * sinR));
+        this->wetRAntennaFade[1] = (2 * cosR * nWater) / (cosR * nWater * nWater + sqrt(nWater * nWater - nWater * nWater * sinR * sinR));
+	}
+}
 void Path::displayPathTotalLength() {
     cout<<this->totalLength;
 }
@@ -1092,7 +1108,13 @@ bool Model::calculateAmplitude() {
 vector<Path> Model::getStrongestPaths() const{
 	return this->strongestPaths;
 }
-
+bool Model::calculateWetAntennaEffect() {
+    vector<Path>::iterator iter = this->strongestPaths.begin();
+	for (; iter != this->strongestPaths.end(); iter++) {
+	    iter->calculateWetAntennaEffect(this->rAntennas);
+	}
+	return true;
+};
 
 double Reflection::getLength() const {
 	return this->length;
